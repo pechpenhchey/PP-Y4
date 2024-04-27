@@ -5,11 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
  
 Route::get('/', function () {
     return view('welcome');
 });
- 
+
+Route::get('/food', [ProductController::class, 'showFoodProducts'])->name('food');
+
 Route::get('/home', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -19,10 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/category', [HomeController::class, 'userCategory'])->name('user.category');
+    
 });
  
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
     Route::get('/admin/products', [ProductController::class, 'index'])->name('admin/products');
     Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin/products/create');
@@ -42,5 +47,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index'); // Define the index route
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('admin/users', UserController::class)->except(['show']);
+
+    Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
+    Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
+});
 
 require __DIR__.'/auth.php';

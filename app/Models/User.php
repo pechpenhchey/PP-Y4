@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'usertype',
     ];
 
     /**
@@ -47,5 +48,5 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->usertype === 'admin';
-    }    
+    }   
 }

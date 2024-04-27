@@ -1,8 +1,17 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl me-5 px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
+
+                <div class="p-3 me-5">
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            @include('admin.sidebar')
+                        @endif
+                    @endauth
+                </div>
+                
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
@@ -16,6 +25,15 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('food')" :active="request()->routeIs('food.products')">
+                        {{ __('Food') }}
+                    </x-nav-link>
+
+
+                    <x-nav-link :href="route('user.category')" :active="request()->routeIs('user.category')">
+                        {{ __('Category') }}
+                    </x-nav-link>
+
                     @auth
                         @if(auth()->user()->isAdmin())
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
@@ -23,11 +41,6 @@
                             </x-nav-link>
                         @endif
                     @endauth
-
-                    <x-nav-link :href="route('user.category')" :active="request()->routeIs('user.category')">
-                        {{ __('Category') }}
-                    </x-nav-link>
-
                 </div>
             </div>
 

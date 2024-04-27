@@ -27,12 +27,18 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label">Category</label>
-                                <input type="text" name="category" class="form-control" placeholder="Category" value="{{$products->category}}">
-                                @error('category')
+                                <select name="category_id" class="form-control">
+                                    <option value="">Select Category</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" @if($category->id == $products->category_id) selected @endif>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label">Price</label>

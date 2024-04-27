@@ -43,7 +43,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <input type="text" name="price" class="form-control" placeholder="Price">
+                                <input type="number" name="price" class="form-control" placeholder="Price">
                                 @error('price')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
