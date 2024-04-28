@@ -15,11 +15,10 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    public function showAdminDashboard()
+    public function totalUsers()
     {
-        $userCount = User::where('usertype', 'user')->count();
-
-        return view('admin.dashboard', compact('userCount'));
+        $totalUsers = User::count(); // Get the total count of users
+        return view('admin.dashboard', compact('totalUsers')); // Passes the $totalUsers variable
     }
     
     public function create()

@@ -49,6 +49,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('admin/users', UserController::class)->except(['show']);
+    Route::get('admin/total-users', [HomeController::class, 'totalUsers'])->name('admin.total-users'); // New route for total users
 
     Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');

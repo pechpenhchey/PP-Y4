@@ -59,7 +59,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.users.index') }}">
           <i class="fa-solid fa-user"></i>
-          <span>User role management</span>
+          <span>User management</span>
         </a>
       </li>
       <li class="nav-item">
