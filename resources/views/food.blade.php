@@ -1,4 +1,5 @@
 <x-app-layout>
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <h1 class="text-center p-5 price" style="font-size: 35px;"><p>Check Our <span>Yummy Menu</span></p></h1>
     <div class="container">
         <div class="row justify-content-center">
@@ -21,7 +22,7 @@
                                         </div>
                                         <div class="menu-footer d-flex justify-content-between align-items-center">
                                             <p class="price">
-                                                Price: ${{ $product->price }}
+                                             ${{ $product->price }}
                                             </p>
                                             <div>
                                                 <a href="#" class="btn btn-primary">Order</a>

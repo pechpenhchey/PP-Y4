@@ -4,13 +4,13 @@
         <div class="flex justify-between h-16">
             <div class="flex">
 
-                <div class="p-3 me-5">
+<!--                 <div class="p-3 me-5">
                     @auth
                         @if(auth()->user()->isAdmin())
                             @include('admin.sidebar')
                         @endif
                     @endauth
-                </div>
+                </div> -->
                 
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -33,14 +33,6 @@
                     <x-nav-link :href="route('user.category')" :active="request()->routeIs('user.category')">
                         {{ __('Category') }}
                     </x-nav-link>
-
-                    @auth
-                        @if(auth()->user()->isAdmin())
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                        @endif
-                    @endauth
                 </div>
             </div>
 
@@ -63,6 +55,14 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+
+                        @auth
+                        @if(auth()->user()->isAdmin())
+                            <x-dropdown-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+                        @endif
+                        @endauth
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
