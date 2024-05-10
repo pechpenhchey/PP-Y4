@@ -1,83 +1,83 @@
-<style>
-/* Custom CSS for sidebar */
-.sidebar {
-  background-color: #f1f1f1;
-  width: auto; /* Set width to auto to wrap content */
-  max-width: 80%; /* Set max-width to limit the width */
-}
+<div class="container-fluid">
+    <div class="row flex-nowrap bg-dark">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                      <span class="fs-5 d-none d-sm-inline">Menu</span>
+                  </a>
+                </div>
+                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                  <x-dropdown align="right" width="48">
+                      <!-- Trigger Button -->
+                      <x-slot name="trigger">
+                          <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                              <div>{{ Auth::user()->name }}</div>
+                              <div class="ms-1">
+                                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                  </svg>
+                              </div>
+                          </button>
+                      </x-slot>
 
-.sidebar-header {
-  font-size: 24px; /* Increase font size for Admin menu text */
-}
+                      <x-slot name="content">
+                          <x-dropdown-link :href="route('profile.edit')">
+                              {{ __('Profile') }}
+                          </x-dropdown-link>
 
-.sidebar a {
-  color: black;
-  text-decoration: none;
-}
+                          @auth
+                          @if(auth()->user()->isAdmin())
+                          <x-dropdown-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                              {{ __('Dashboard') }}
+                          </x-dropdown-link>
+                          @endif
+                          @endauth
 
-.sidebar a.active {
-  background-color: #04AA6D;
-  color: white;
-}
+                          <!-- Authentication -->
+                          <form method="POST" action="{{ route('logout') }}">
+                              @csrf
 
-.sidebar a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-}
+                              <x-dropdown-link :href="route('logout')"
+                                  onclick="event.preventDefault();
+                                          this.closest('form').submit();">
+                                  {{ __('Log Out') }}
+                              </x-dropdown-link>
+                          </form>
+                      </x-slot>
+                  </x-dropdown>
+                </div>
+              </div>
 
-/* Adjust padding for list items */
-.navbar-nav .nav-link {
-  padding: 10px 20px;
-}
-
-/* Increase font size for list items */
-.navbar-nav .nav-link i {
-  font-size: 24px; /* Increase icon size */
-  margin-right: 10px; /* Add space between icon and text */
-}
-
-.navbar-nav .nav-link span {
-  font-size: 20px; /* Increase text size */
-}
-</style>
-</head>
-<body>
-
-<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenu">
-  <div class="offcanvas-header">
-    <h1 class="p-3 sidebar-header"><b>Admin menu</b></h1>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-      <a class="nav-link" href="{{ route('admin.dashboard') }}">
-          <i class="fas fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.users.index') }}">
-          <i class="fa-solid fa-user"></i>
-          <span>User management</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('categories.index') }}">
-          <i class="fas fa-list"></i>
-          <span>Category management</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('products.index') }}">
-          <i class="fas fa-box-open"></i>
-          <span>Food management</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                      <i class="fas fa-tachometer-alt"></i>
+                      <span>Dashboard</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">
+                      <i class="fa-solid fa-user"></i>
+                      <span>User management</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('categories.index') }}">
+                      <i class="fas fa-list"></i>
+                      <span>Category management</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('products.index') }}">
+                      <i class="fas fa-box-open"></i>
+                      <span>Food management</span>
+                    </a>
+                  </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+    </div>
 </div>
-
-<button class="btn me-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
-  <i class="fas fa-bars"></i>
-</button>

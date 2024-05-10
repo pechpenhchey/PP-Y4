@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Yummy Bootstrap Template - Index</title>
+  <title>Hfood</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -14,8 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
-
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -23,11 +22,8 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-
       <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Yummy<span>.</span></h1>
+        <h1>HFood<span>.</span></h1>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -36,49 +32,22 @@
           <li><a href="#about">About</a></li>
           <li><x-nav-link :href="route('food')" :active="request()->routeIs('food.products')">
                         {{ __('Food') }}</x-nav-link></li>
-          <li><a href="#events">Events</a></li>
           <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
           <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-
-      <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+          <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
+                        <li>
+                        @auth
+                        @if(auth()->user()->isAdmin())
+                            <x-dropdown-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+                        @endif
+                        @endauth
+</li>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -88,10 +57,11 @@
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
+                        </form></li>
+            </ul>
+          </li>
+        </ul>
+      </nav><!-- .navbar -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -107,7 +77,7 @@
           <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
-            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+            <a href="https://www.youtube.com/" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
@@ -215,45 +185,6 @@
 
       </div>
     </section><!-- End Why Us Section -->
-
-    <!-- ======= Stats Counter Section ======= -->
-    <section id="stats-counter" class="stats-counter">
-      <div class="container" data-aos="zoom-out">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Clients</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Workers</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
-
-      </div>
-    </section><!-- End Stats Counter Section -->
 
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
@@ -683,32 +614,6 @@
       </div>
     </section><!-- End Chefs Section -->
 
-    <!-- ======= Gallery Section ======= -->
-    <section id="gallery" class="gallery section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-header">
-          <h2>gallery</h2>
-          <p>Check <span>Our Gallery</span></p>
-        </div>
-
-        <div class="gallery-slider swiper">
-          <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-1.jpg"><img src="assets/img/gallery/gallery-1.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-2.jpg"><img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-3.jpg"><img src="assets/img/gallery/gallery-3.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-4.jpg"><img src="assets/img/gallery/gallery-4.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-5.jpg"><img src="assets/img/gallery/gallery-5.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-6.jpg"><img src="assets/img/gallery/gallery-6.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-7.jpg"><img src="assets/img/gallery/gallery-7.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-8.jpg"><img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt=""></a></div>
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section><!-- End Gallery Section -->
-
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
@@ -767,30 +672,6 @@
           </div><!-- End Info Item -->
 
         </div>
-
-        <form action="forms/contact.php" method="post" role="form" class="php-email-form p-3 p-md-4">
-          <div class="row">
-            <div class="col-xl-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-            </div>
-            <div class="col-xl-6 form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-          </div>
-          <div class="my-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-          </div>
-          <div class="text-center"><button type="submit">Send Message</button></div>
-        </form><!--End Contact Form -->
-
       </div>
     </section><!-- End Contact Section -->
 
@@ -850,19 +731,11 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        &copy; Copyright <strong><span>HFood</span></strong>. All Rights Reserved
       </div>
     </div>
 
-  </footer><!-- End Footer -->
-  <!-- End Footer -->
+  </footer>
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
