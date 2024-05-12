@@ -17,14 +17,9 @@ class ProductController extends Controller
 
     public function showFoodProducts()
     {
-        // Retrieve all products
         $products = Product::all();
-        
-        // Pass the $products variable to the 'food' view
         return view('food', compact('products'));
     }
-    
-     
     
     public function create()
     {
