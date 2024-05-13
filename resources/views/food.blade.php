@@ -15,10 +15,17 @@
                                         </a>
                                         <div class="menu-details">
                                             <h4 class="menu-title p-3 price">{{ $product->title }}</h4>
-                                            <h5 class="menu-category"><b style="color: green;">Type:</b> {{ $product->category->name }}</h5>
-                                            <p class="ingredients m-3">
-                                                Description: {{ $product->description }}
-                                            </p>
+                                            <h5 class="menu-category ms-3" style="color: green;">{{ $product->category->name }}</h5>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <p class="ingredients mt-3 ms-1 col-4">
+                                                        Information: 
+                                                    </p>
+                                                    <div class="col-7 mt-3 description-container">
+                                                        {!! $product->description !!}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="menu-footer d-flex justify-content-between align-items-center">
                                             <p class="price">
@@ -37,4 +44,21 @@
             @endforeach
         </div>
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var descriptionContainers = document.querySelectorAll('.description-container');
+        descriptionContainers.forEach(function(container) {
+            var text = container.textContent;
+            var maxHeight = parseInt(window.getComputedStyle(container).maxHeight, 10);
+            if (container.scrollHeight > maxHeight) {
+                while (container.scrollHeight > maxHeight) {
+                    text = text.slice(0, -1);
+                    container.innerHTML = text + '...';
+                }
+            }
+        });
+    });
+</script>
+
 </x-app-layout>
