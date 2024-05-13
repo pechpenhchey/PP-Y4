@@ -240,6 +240,15 @@ section {
   background: rgba(206, 18, 18, 0.8);
 }
 
+/* card height */
+.description-container {
+  max-height: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+}
+
+
 /*--------------------------------------------------------------
 # Desktop Navigation
 --------------------------------------------------------------*/
