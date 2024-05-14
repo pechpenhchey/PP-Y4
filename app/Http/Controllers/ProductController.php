@@ -18,8 +18,9 @@ class ProductController extends Controller
     public function showFoodProducts()
     {
         $products = Product::all();
-        return view('food', compact('products'));
-    }
+        $categories = Category::all();
+        return view('dashboard', ['products' => $products, 'categories' => $categories]);
+    }       
     
     public function create()
     {

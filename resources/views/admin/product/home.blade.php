@@ -37,7 +37,9 @@
                                                 @forelse ($products as $product)
                                                     <tr>
                                                         <td>{{ $product->id }}</td>
-                                                        <td><img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->title }}" style="max-width: 100px;"></td>
+                                                        <td style="width: 100px; height: 100px;">
+                                                            <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->title }}" style="max-width: 100%; max-height: 100%;">
+                                                        </td>
                                                         <td>{{ $product->title }}</td>
                                                         <td>{{ $product->category->name }}</td>
                                                         <td>{!! $product->description !!}</td>
