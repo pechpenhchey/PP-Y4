@@ -1,5 +1,6 @@
 <x-app-layout>
 <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+<link href="{{ asset('css/searchBtn.css') }}" rel="stylesheet">
 
 <div class="container-fluid">
     <div class="row">
@@ -18,8 +19,16 @@
                                         </div>
                                         <div class="col-sm-7">
                                             <a href="{{ route('admin/products/create') }}" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add</span></a>
-                                            <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>						
-                                        </div>
+                                            <form method="GET" action="{{ route('admin/products') }}" class="d-inline-block">
+                                                <div class="input-group">
+                                                    <input type="text" name="search" class="form-control" placeholder="Search foods..." value="{{ request('search') }}">
+                                                    <div class="input-group-append">
+                                                        <button class="btn" style="background-color: rgb(255, 255, 255)" type="submit">
+                                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>	                                        </div>
                                     </div>                                   
                                 </div>
                                 <hr />
@@ -56,21 +65,15 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                        <td class="text-center" colspan="7">Product not found</td>
+                                        <td class="text-center" colspan="7">Food not found</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> per entries</div>
+                                    <div class="hint-text">Showing <b>{{ $products->perPage() }}</b> entries per page</div>
                                     <ul class="pagination">
-                                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                                        {{ $products->appends(['search' => request('search')])->links() }}
                                     </ul>
                                 </div>
                             </div>

@@ -8,11 +8,20 @@ use App\Models\Category;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->orderByDesc('id')->get();
+        $query = Product::with('category');
+        $search = $request->input('search');
+
+        if ($request->has('search')) {
+            $query->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('id', 'like', '%' . $search . '%');
+        }
+
+        $products = $query->orderByDesc('id')->paginate(5);
         $total = Product::count();
-        return view('admin.product.home', compact('products', 'total'));
+        
+        return view('admin.product.home', compact('products', 'total', 'search'));
     }
 
     public function showFoodProducts()
