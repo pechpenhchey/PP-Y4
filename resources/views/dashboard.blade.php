@@ -5,6 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Hfood</title>
   <meta content="" name="description">
@@ -26,7 +27,7 @@
         <ul>
           <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#food">About</a></li>
+          <li><a href="#menu">Menu</a></li>
           <li><a href="#contact">Contact</a></li>
           <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
@@ -133,13 +134,13 @@
 
             <div class="section-header">
                 <h2>Our Menu</h2>
-                <p>Check Our <span>Yummy Menu</span></p>
+                <p>Check Our <span>Healthy Menu</span></p>
             </div>
 
             <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#menu-all">
-                        <h4 style="cursor: pointer;">All</h4>
+                        <h4 style="color: green; cursor: pointer; font-size: large;">All</h4>
                     </a>
                 </li>
                 @foreach ($categories as $category)
@@ -156,7 +157,7 @@
                     <!-- Display all products -->
                     <div class="row">
                         @foreach ($products as $product)
-                            <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="col-lg-3 col-md-6">
                                 <section id="menu" class="menu">
                                     <div data-aos="fade-up">
                                         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
@@ -167,17 +168,7 @@
                                                     </a>
                                                     <div class="menu-details">
                                                         <h4 class="menu-title p-3 price">{{ $product->title }}</h4>
-                                                        <h5 class="menu-category ms-3" style="color: green;">{{ $product->category->name }}</h5>
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <p class="ingredients mt-3 ms-1 col-4">
-                                                                    Information: 
-                                                                </p>
-                                                                <div class="col-7 mt-3 description-container">
-                                                                    {!! $product->description !!}
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <h5 class="menu-category ms-3 mb-3" style="color: green;">{{ $product->category->name }}</h5>
                                                     </div>
                                                     <div class="menu-footer d-flex justify-content-between align-items-center">
                                                         <p class="price">
@@ -199,17 +190,17 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="productModalLabel">{{ $product->title }}</h5>
+                                            <h5 class="modal-title price" id="productModalLabel">{{ $product->title }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="container">
                                               <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-6">
                                                 <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->title }}" class="img-fluid">                                         
                                                 </div>
-                                                <div class="col-md-4">
-                                                  <div class="text-center fs-5">Food Information</div>
+                                                <div class="col-md-6">
+                                                  <div class="fs-5 my-1 text-warning">Information:</div>
                                                   <p>{!! $product->description !!}</p>
                                                 </div>
                                               </div>
@@ -242,17 +233,7 @@
                                                     </a>
                                                     <div class="menu-details">
                                                         <h4 class="menu-title p-3 price">{{ $product->title }}</h4>
-                                                        <h5 class="menu-category ms-3" style="color: green;">{{ $product->category->name }}</h5>
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <p class="ingredients mt-3 ms-1 col-4">
-                                                                    Information: 
-                                                                </p>
-                                                                <div class="col-7 mt-3 description-container">
-                                                                    {!! $product->description !!}
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <h5 class="menu-category ms-3 mb-3" style="color: green;">{{ $product->category->name }}</h5>
                                                     </div>
                                                     <div class="menu-footer d-flex justify-content-between align-items-center">
                                                         <p class="price">
@@ -274,12 +255,21 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="productModalLabel">{{ $product->title }}</h5>
+                                            <h5 class="modal-title price" id="productModalLabel">{{ $product->title }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->title }}" class="img-fluid">
-                                            <p>{!! $product->description !!}</p>
+                                            <div class="container">
+                                              <div class="row">
+                                                <div class="col-md-6">
+                                                <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->title }}" class="img-fluid">                                         
+                                                </div>
+                                                <div class="col-md-6">
+                                                  <div class="fs-5 my-1 text-warning">Information:</div>
+                                                  <p>{!! $product->description !!}</p>
+                                                </div>
+                                              </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

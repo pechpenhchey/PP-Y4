@@ -6,75 +6,67 @@
             </div>
             <div class="col">
                 <div class="py-12">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div class="p-6 text-gray-900">
-                                <h1 class="mb-3">Edit Product</h1>
-                                <a href="{{ route('admin/products') }}" class="btn btn-primary mb-3">Back</a>
-                                <hr />
-                                <form action="{{ route('admin/products/update', $products->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <label class="form-label">Product Name</label>
-                                            <input type="text" name="title" class="form-control" placeholder="Title" value="{{$products->title}}">
-                                            @error('title')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <label class="form-label">Category</label>
-                                            <select name="category_id" class="form-control">
-                                                <option value="">Select Category</option>
-                                                @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}" @if($category->id == $products->category_id) selected @endif>{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('category_id')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <label class="form-label">Price</label>
-                                            <input type="text" name="price" class="form-control" placeholder="Product Price" value="{{$products->price}}">
-                                            @error('price')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <label class="form-label">Description</label>
-                                            <textarea id="task-textarea" name="description" class="form-control" placeholder="Product Description">{{$products->description}}</textarea>
-                                            @error('description')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <label class="form-label">Image</label>
-                                            <input type="file" name="image" class="form-control">
-                                            @error('image')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="d-grid">
-                                            <button class="btn btn-warning">Update</button>
-                                        </div>
-                                    </div>
-                                </form>
+                    <div class="container contact-form">
+                        <hr />
+                        @if (session()->has('error'))
+                            <div>
+                                {{ session('error') }}
                             </div>
-                        </div>
+                        @endif
+                        <form action="{{ route('admin/products/update', $products->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <span class="fs-5">Edit Food</span>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="title" class="form-control" placeholder="Title" value="{{$products->title}}">
+                                        @error('title')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="category_id" class="form-control">
+                                            <option value="">Select Category</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}" @if($category->id == $products->category_id) selected @endif>{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="price" class="form-control" placeholder="Price" value="{{$products->price}}">
+                                        @error('price')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" name="image" class="form-control" accept="image/*">
+                                        @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <textarea id="task-textarea" name="description" class="form-control" placeholder="Description">{{$products->description}}</textarea>
+                                        @error('description')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-end">
+                                <div class="col-lg-3 col-md-6" style="width: 100px">
+                                    <button class="btn btn-primary">Update</button>
+                                </div>
+                                <div class="col-lg-3 col-md-6" style="width: 100px">
+                                    <button class="btn btn-danger"><a class="text-decoration-none text-white" href="{{ route('admin/products') }}">Cancel</a></button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

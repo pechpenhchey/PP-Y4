@@ -1,4 +1,6 @@
 <x-app-layout>
+<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-auto sidebar px-0">
@@ -6,63 +8,74 @@
         </div>
             <div class="col">
                 <div class="py-12">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                                    <div class="p-6 text-gray-900">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h1 class="mb-0">Food list</h1>
-                                            <a href="{{ route('admin/products/create') }}" class="btn btn-primary mb-3">Add Product</a>
+                    <div class="container-xl">
+                        <div class="table-responsive">
+                            <div class="table-wrapper">
+                                <div class="table-title">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <h2>Food <b>Management</b></h2>
                                         </div>
-                                        <hr />
-                                        @if(Session::has('success'))
-                                            <div class="alert alert-success" role="alert">
-                                                {{ Session::get('success') }}
-                                            </div>
-                                        @endif
-                                        <table class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Image</th>
-                                                    <th>Title</th>
-                                                    <th>Category</th>
-                                                    <th>Description</th>
-                                                    <th>Price</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($products as $product)
-                                                    <tr>
-                                                        <td>{{ $product->id }}</td>
-                                                        <td style="width: 100px; height: 100px;">
-                                                            <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->title }}" style="max-width: 100%; max-height: 100%;">
-                                                        </td>
-                                                        <td>{{ $product->title }}</td>
-                                                        <td>{{ $product->category->name }}</td>
-                                                        <td>{!! $product->description !!}</td>
-                                                        <td>{{ $product->price }}</td>
-                                                        <td>
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a href="{{ route('admin/products/edit', ['id'=>$product->id]) }}" type="button" class="btn btn-primary">Edit</a>
-                                                                <a href="{{ route('admin/products/delete', ['id'=>$product->id]) }}" type="button" class="btn btn-danger">Delete</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td class="text-center" colspan="7">Product not found</td>
-                                                    </tr>
-                                                @endforelse
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        <div class="col-sm-7">
+                                            <a href="{{ route('admin/products/create') }}" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add</span></a>
+                                            <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>						
+                                        </div>
+                                    </div>                                   
+                                </div>
+                                <hr />
+                                    @if(Session::has('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Image</th>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($products as $product)
+                                        <tr>
+                                            <td>{{ $product->id }}</td>
+                                            <td><a href="#"><img src="{{ asset('images/' . $product->image) }}" class="avatar" alt="{{ $product->title }}"></a></td>
+                                            <td>{{ $product->title }}</td>
+                                            <td>{{ $product->category->name }}</td>
+                                            <td>{!! $product->description !!}</td>
+                                            <td>{{ $product->price }}</td>
+                                            <td>
+                                                <a href="{{ route('admin/products/edit', ['id'=>$product->id]) }}" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+                                                <a href="{{ route('admin/products/delete', ['id'=>$product->id]) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                        <td class="text-center" colspan="7">Product not found</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                                <div class="clearfix">
+                                    <div class="hint-text">Showing <b>5</b> per entries</div>
+                                    <ul class="pagination">
+                                        <li class="page-item disabled"><a href="#">Previous</a></li>
+                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>     
                 </div>
             </div>
         </div>

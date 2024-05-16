@@ -69,7 +69,7 @@
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
-                margin-left: 0; /* Reset margin for smaller screens */
+                margin-left: 0;
             }
             h1 {
                 font-size: 2rem;

@@ -1,4 +1,6 @@
 <x-app-layout>
+<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+
     <div>
         <div class="container-fluid">
             <div class="row">

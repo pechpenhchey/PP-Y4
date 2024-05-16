@@ -1,43 +1,69 @@
 <x-app-layout>
-<div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Edit User</div>
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
-                    <div class="card-body">
-                        <form action="{{ route('users.update', $user->id) }}" method="POST">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-auto sidebar px-0">
+                @include('admin.sidebar')
+            </div>
+            <div class="col">
+                <div class="py-12">
+                    <div class="container contact-form">
+                        <hr />
+                        @if (session()->has('error'))
+                            <div>
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}" required>
+                            <span class="fs-5">Edit User</span>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name" value="{{ $user->name }}">
+                                        @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ $user->email }}">
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control" placeholder="Password">
+                                        <small class="form-text text-muted">Leave blank if you don't want to change the password.</small>
+                                        @error('password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="usertype" id="usertype" class="form-control">
+                                            <option value="">Select Role</option>
+                                                <option value="admin" {{ $user->usertype === 'admin' ? 'selected' : '' }}>Admin</option>
+                                                <option value="user" {{ $user->usertype === 'user' ? 'selected' : '' }}>User</option>     
+                                        </select>
+                                        @error('usertype')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}" required>
+                            <div class="row d-flex justify-end">
+                                <div class="col-lg-3 col-md-6" style="width: 100px">
+                                    <button class="btn btn-primary">Update</button>
+                                </div>
+                                <div class="col-lg-3 col-md-6" style="width: 100px">
+                                    <button class="btn btn-danger"><a class="text-decoration-none text-white" href="{{ route('admin.users.index') }}">Cancel</a></button>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control">
-                                <small class="form-text text-muted">Leave blank if you don't want to change the password.</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="usertype">Role</label>
-                                <select name="usertype" id="usertype" class="form-control" required>
-                                    <option value="admin" {{ $user->usertype === 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="user" {{ $user->usertype === 'user' ? 'selected' : '' }}>User</option>
-                                </select>
-                            </div>
-
-
-                            <button type="submit" class="btn btn-primary">Update User</button>
                         </form>
-
                     </div>
                 </div>
             </div>
