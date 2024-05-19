@@ -36,6 +36,15 @@
                         </x-dropdown-link>
                         <li>
                           @auth
+                          @if(auth()->user()->isUser())
+                              <x-dropdown-link >
+                                  {{ __('Order History') }}
+                              </x-dropdown-link>
+                          @endif
+                          @endauth
+                        </li>
+                        <li>
+                          @auth
                           @if(auth()->user()->isAdmin())
                               <x-dropdown-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                                   {{ __('Dashboard') }}
@@ -57,6 +66,7 @@
             </ul>
           </li>
         </ul>
+        <div class="ms-3"><a href=""><i class="fa-solid fa-cart-shopping fs-4"></i></a></div>
       </nav><!-- .navbar -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
@@ -221,6 +231,11 @@
                 <div class="tab-pane fade" id="menu-{{ $category->id }}">
                     <!-- Display products for this category -->
                     <div class="row">
+                      @if ($category->products->isEmpty())
+                          <div class="col-md-12 pt-5 fs-3 text-info">
+                              <h1 class="text-center">No Food Available !!</h1>
+                          </div>
+                      @else
                         @foreach ($category->products as $product)
                             <div class="col-lg-3 col-md-6 mb-4">
                                 <section id="menu" class="menu">
@@ -279,9 +294,10 @@
                                 </div>
                             </div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
-                @endforeach
+                @endforeach 
             </div>
 
         </div>

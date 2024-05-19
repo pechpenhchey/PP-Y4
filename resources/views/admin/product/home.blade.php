@@ -1,13 +1,30 @@
 <x-app-layout>
-<link href="{{ asset('css/table.css') }}" rel="stylesheet">
-<link href="{{ asset('css/searchBtn.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-auto sidebar px-0">
+    <body id="page-top">
+    
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+    
+            <!-- Sidebar -->
             @include('admin.sidebar')
-        </div>
-            <div class="col">
+            <!-- End of Sidebar -->
+    
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+    
+                <!-- Main Content -->
+                <div id="content">
+    
+                    <!-- Topbar -->
+                    @include('admin.topbar')
+                    <!-- End of Topbar -->
+    
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- Content Row -->
+                        <div class="col">
                 <div class="py-12">
                     <div class="container-xl">
                         <div class="table-responsive">
@@ -28,7 +45,8 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </form>	                                        </div>
+                                            </form>	                                        
+                                        </div>
                                     </div>                                   
                                 </div>
                                 <hr />
@@ -53,7 +71,7 @@
                                         @forelse ($products as $product)
                                         <tr>
                                             <td>{{ $product->id }}</td>
-                                            <td><a href="#"><img src="{{ asset('images/' . $product->image) }}" class="avatar" alt="{{ $product->title }}"></a></td>
+                                            <td><a href="#"><img src="{{ asset('images/' . $product->image) }}" class="avatar" alt="{{ $product->title }}" style="width: 120px; height: 80px;"></a></td>
                                             <td>{{ $product->title }}</td>
                                             <td>{{ $product->category->name }}</td>
                                             <td>{!! $product->description !!}</td>
@@ -71,8 +89,7 @@
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
-                                    <div class="hint-text">Showing <b>{{ $products->perPage() }}</b> entries per page</div>
-                                    <ul class="pagination">
+                                    <ul class="paginations">
                                         {{ $products->appends(['search' => request('search')])->links() }}
                                     </ul>
                                 </div>
@@ -81,8 +98,15 @@
                     </div>     
                 </div>
             </div>
+                <!-- End of Main Content -->
+            </div>
+            <!-- End of Content Wrapper -->
+    
         </div>
-    </div>
+        <!-- End of Page Wrapper -->
+    
+    </body>
+    
+    </html>
 </x-app-layout>
-
-
+    

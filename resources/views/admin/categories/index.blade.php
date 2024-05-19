@@ -1,12 +1,30 @@
 <x-app-layout>
-<link href="{{ asset('css/table.css') }}" rel="stylesheet">
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-auto sidebar px-0">
-                @include('admin.sidebar')
-            </div>
-            <div class="col">
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+    
+    <body id="page-top">
+    
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+    
+            <!-- Sidebar -->
+            @include('admin.sidebar')
+            <!-- End of Sidebar -->
+    
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+    
+                <!-- Main Content -->
+                <div id="content">
+    
+                    <!-- Topbar -->
+                    @include('admin.topbar')
+                    <!-- End of Topbar -->
+    
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- Content Row -->
+                        <div class="col">
                 <div class="py-12">
                     <div class="container-xl">
                         <div class="table-responsive">
@@ -18,7 +36,16 @@
                                         </div>
                                         <div class="col-sm-7">
                                             <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3 me-3" style="width: auto;"><i class="material-icons">&#xE147;</i> Add</a>
-                                            <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>						
+                                            <form method="GET" action="{{ route('categories.index') }}" class="d-inline-block">
+                                                <div class="input-group">
+                                                    <input type="text" name="search" class="form-control" placeholder="Search categories..." value="{{ request('search') }}">
+                                                    <div class="input-group-append">
+                                                        <button class="btn" style="background-color: rgb(255, 255, 255)" type="submit">
+                                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>                                        
                                         </div>
                                     </div>                                   
                                 </div>
@@ -60,15 +87,8 @@
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> per entries</div>
-                                    <ul class="pagination">
-                                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                                    <ul class="paginations">
+                                        {{ $categories->appends(['search' => request('search')])->links() }}
                                     </ul>
                                 </div>
                             </div>
@@ -76,6 +96,15 @@
                     </div> 
                 </div>
             </div>
+                <!-- End of Main Content -->
+            </div>
+            <!-- End of Content Wrapper -->
+    
         </div>
-    </div>
-</x-app-layout>
+        <!-- End of Page Wrapper -->
+    
+    </body>
+    
+    </html>
+    </x-app-layout>
+    

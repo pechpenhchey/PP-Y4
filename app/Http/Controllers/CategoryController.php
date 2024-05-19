@@ -7,10 +7,20 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+        $query = Category::query();
+        $search = $request->input('search');
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('id', 'like', '%' . $search . '%');
+        }
+
+        $categories = $query->orderByDesc('id')->paginate(5);
+        $total = Category::count();
+
+        return view('admin.categories.index', compact('categories', 'total', 'search'));
     }
 
     public function create()
