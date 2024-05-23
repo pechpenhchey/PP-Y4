@@ -36,17 +36,17 @@
                         @csrf
                         @method('PUT')
                         <span class="fs-5">Edit Category</span>
-                            <div class="form-group">
+                            <div class="form-group w-50">
                                 <input type="text" name="name" class="form-control" placeholder="Name" value="{{ $category->name }}">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>        
-                        <div class="row d-flex justify-end">
-                            <div class="col-lg-3 col-md-6" style="width: 100px">
+                        <div class="row d-flex">
+                            <div class="col-lg-1 col-md-3" style="width: 100px">
                                 <button class="btn btn-primary">Update</button>
                             </div>
-                            <div class="col-lg-3 col-md-6" style="width: 100px">
+                            <div class="col-lg-1 col-md-3" style="width: 100px">
                                 <button class="btn btn-danger"><a class="text-decoration-none text-white" href="{{ route('admin.categories.index') }}">Cancel</a></button>
                             </div>
                         </div>

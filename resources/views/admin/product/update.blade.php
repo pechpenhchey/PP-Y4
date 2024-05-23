@@ -77,11 +77,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row d-flex justify-end">
-                                <div class="col-lg-3 col-md-6" style="width: 100px">
+                            <div class="row d-flex">
+                                <div class="col-lg-1 col-md-3" style="width: 100px">
                                     <button class="btn btn-primary">Update</button>
                                 </div>
-                                <div class="col-lg-3 col-md-6" style="width: 100px">
+                                <div class="col-lg-1 col-md-3" style="width: 100px">
                                     <button class="btn btn-danger"><a class="text-decoration-none text-white" href="{{ route('admin/products') }}">Cancel</a></button>
                                 </div>
                             </div>

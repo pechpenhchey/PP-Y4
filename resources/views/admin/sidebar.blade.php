@@ -1,5 +1,4 @@
-
-    <!-- Sidebar -->
+<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -15,12 +14,12 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active ps-4">
-            <a class="nav-link text-white" href="{{ route('admin.dashboard') }}">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-tachometer fa-fw me-2" style="font-size: 1rem;"></i>
-                    <span>Dashboard</span>
-                </div>
-            </a>
+        <a class="nav-link text-white" href="{{ route('admin.dashboard') }}">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-tachometer fa-fw me-2" style="font-size: 1rem;"></i>
+                <span>Dashboard</span>
+            </div>
+        </a>
     </li>
 
     <!-- Divider -->
@@ -33,8 +32,8 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item ps-4">
-        <a class="nav-link collapsed" href="{{ route('admin.users.index') }}"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="{{ route('admin.users.index') }}" aria-expanded="true"
+            aria-controls="collapseTwo">
             <i class="fa-solid fa-user"></i>
             <span>User</span>
         </a>
@@ -42,22 +41,22 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item ps-4">
-        <a class="nav-link collapsed" href="{{ route('products.index') }}"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="{{ route('products.index') }}" aria-expanded="true"
+            aria-controls="collapseUtilities">
             <i class="fa-solid fa-burger"></i>
             <span>Food</span>
         </a>
     </li>
     <li class="nav-item ps-4">
-        <a class="nav-link collapsed" href="{{ route('categories.index') }}"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="{{ route('categories.index') }}" aria-expanded="true"
+            aria-controls="collapseUtilities">
             <i class="fa-solid fa-table-list"></i>
             <span>Category</span>
         </a>
     </li>
     <li class="nav-item ps-4">
-        <a class="nav-link collapsed" href="#"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="{{ route('orders.index') }}" aria-expanded="true"
+            aria-controls="collapseUtilities">
             <i class="fa-solid fa-cart-shopping"></i>
             <span>Order</span>
         </a>

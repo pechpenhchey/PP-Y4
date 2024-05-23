@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
  
 Route::get('/', function () {
     return view('welcome');
@@ -51,6 +52,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
     Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/orders', [OrderController::class, 'create'])->name('orders.create');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::get('/admin/orders/pending', [OrderController::class, 'pendingOrders'])->name('admin.orders.pending');
 });
 
 require __DIR__.'/auth.php';

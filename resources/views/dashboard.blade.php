@@ -1,20 +1,12 @@
 <x-app-layout>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Hfood</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
+  @include('cartTable')
     
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -38,7 +30,7 @@
                           @auth
                           @if(auth()->user()->isUser())
                               <x-dropdown-link >
-                                  {{ __('Order History') }}
+                                  {{ __('Add to cart History') }}
                               </x-dropdown-link>
                           @endif
                           @endauth
@@ -66,7 +58,10 @@
             </ul>
           </li>
         </ul>
-        <div class="ms-3"><a href=""><i class="fa-solid fa-cart-shopping fs-4"></i></a></div>
+        <div class="ms-3" data-toggle="modal" data-target="#cartModal" style="cursor: pointer;">
+          <i class="fa-solid fa-cart-shopping fs-4"></i>
+        </div>
+        
       </nav><!-- .navbar -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
@@ -78,15 +73,14 @@
   <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
       <div class="row justify-content-between gy-5">
-        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+        <div class="col-lg-5 Add to cart-2 Add to cart-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
           <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
           <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
-            <a href="https://www.youtube.com/" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+            <a href="#menu" class="btn-book-a-table">Add to cart food</a>
           </div>
         </div>
-        <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+        <div class="col-lg-5 Add to cart-1 Add to cart-lg-2 text-center text-lg-start">
           <img src="https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/topic_centers/2020-5/salmon-avocado-eggs-1296x728-header.jpg?w=1155&h=1528" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
@@ -129,7 +123,7 @@
 
               <div class="position-relative mt-4">
                 <img src="assets/img/about-2.jpg" class="img-fluid" alt="">
-                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+                <a href="https://www.youtube.com/" class="glightbox play-btn"></a>
               </div>
             </div>
           </div>
@@ -185,7 +179,7 @@
                                                         ${{ $product->price }}
                                                         </p>
                                                         <div>
-                                                            <a href="#" class="btn btn-primary">Order</a>
+                                                            <a href="#" class="btn btn-primary">Add to cart</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -217,8 +211,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Order</button>
+                                            <button type="button" class="btn btn-primary">Add to cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +248,7 @@
                                                         ${{ $product->price }}
                                                         </p>
                                                         <div>
-                                                            <a href="#" class="btn btn-primary">Order</a>
+                                                            <a href="#" class="btn btn-primary">Add to cart</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -287,8 +280,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Order</button>
+                                            <button type="button" class="btn btn-primary">Add to cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -314,7 +306,7 @@
         </div>
 
         <div class="mb-3">
-          <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
+          <iframe style="bAdd to cart:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" framebAdd to cart="0" allowfullscreen></iframe>
         </div><!-- End Google Maps -->
 
         <div class="row gy-4">
