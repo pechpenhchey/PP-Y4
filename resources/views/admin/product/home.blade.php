@@ -75,7 +75,7 @@
                                             <td>{{ $product->title }}</td>
                                             <td>{{ $product->category->name }}</td>
                                             <td>{!! $product->description !!}</td>
-                                            <td>{{ $product->price }}</td>
+                                            <td>$ {{ $product->price }}</td>
                                             <td>
                                                 <a href="{{ route('admin/products/edit', ['id'=>$product->id]) }}" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
                                                 <a href="{{ route('admin/products/delete', ['id'=>$product->id]) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>

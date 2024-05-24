@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\GoogleAuthController;
  
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
  
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+    
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
     Route::get('/admin/products', [ProductController::class, 'index'])->name('admin/products');
@@ -32,9 +34,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/products/edit/{id}', [ProductController::class, 'edit'])->name('admin/products/edit');
     Route::put('/admin/products/edit/{id}', [ProductController::class, 'update'])->name('admin/products/update');
     Route::get('/admin/products/delete/{id}', [ProductController::class, 'delete'])->name('admin/products/delete');
-});
 
-Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', CategoryController::class)->except(['show']);
 
     Route::get('admin/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
@@ -42,26 +42,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('admin/categories', [CategoryController::class, 'store'])->name('admin.categories.store');
     Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
     Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index'); // Define the index route
-});
 
-Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('admin/users', UserController::class)->except(['show']);
-    Route::get('admin/dashboard', [UserController::class, 'totalUsers'])->name('admin.dashboard');
-
     Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
     Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');  
+
 });
 
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
-
-Route::middleware('auth', 'admin')->group(function () {
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-});
-
-
+Route::get('/order-history', [OrderController::class, 'userOrderHistory'])->name('order.history');
 
 Route::middleware('auth')->group(function () {
     Route::post('/home/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
@@ -70,5 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/home/cart/{cartItem}', [CartController::class, 'updateCartItem'])->name('cart.update');
 
 });
+
+Route::get('auth/google', [GoogleAuthController::class,'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class,'callbackGoogle']);
 
 require __DIR__.'/auth.php';

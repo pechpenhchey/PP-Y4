@@ -24,8 +24,8 @@
                             <li>
                                 @auth
                                     @if (auth()->user()->isUser())
-                                        <x-dropdown-link>
-                                            {{ __('Add to cart History') }}
+                                        <x-dropdown-link :href="route('order.history')" :active="request()->routeIs('order.history')">
+                                            {{ __('Order History') }}
                                         </x-dropdown-link>
                                     @endif
                                 @endauth
@@ -54,7 +54,7 @@
                 </li>
                 </ul>
                 <div class="ms-3" style="cursor: pointer;">
-                    <a href="/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
+                    <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
                 </div>
 
             </nav><!-- .navbar -->
@@ -165,7 +165,7 @@
                                 </div>
                                 <div class="cart_buttons">
                                     <button type="button" class="button cart_button_clear"><a class="text-black"
-                                        href="/home/#menu">Continue Shopping</a></button>
+                                            href="/home/#menu">Continue Shopping</a></button>
                                     <button type="submit" class="button cart_button_checkout">Check out</button>
                                 </div>
                             </form>

@@ -34,15 +34,36 @@
                                                     <div class="col-sm-5">
                                                         <h2>Order <b>Management</b></h2>
                                                     </div>
+                                                    <div class="col-sm-7">
+                                                        <a href="{{-- {{ route('admin/products/create') }} --}}" class="btn btn-secondary"><i
+                                                                class="material-icons">&#xE147;</i> <span>Add</span></a>
+                                                        <form method="GET" action="{{ route('orders.index') }}"
+                                                            class="d-inline-block">
+                                                            <div class="input-group">
+                                                                <input type="text" name="search"
+                                                                    class="form-control" placeholder="Search ..."
+                                                                    value="{{ request('search') }}">
+                                                                <div class="input-group-append">
+                                                                    <button class="btn"
+                                                                        style="background-color: rgb(255, 255, 255)"
+                                                                        type="submit">
+                                                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
 
                                                 </div>
                                             </div>
                                             <hr />
-                                            @if (Session::has('success'))
-                                                <div class="alert alert-success" role="alert">
-                                                    {{ Session::get('success') }}
+                                            @if (session('status'))
+                                                <div class="alert alert-{{ session('status') }}">
+                                                    {{ session('message') }}
                                                 </div>
                                             @endif
+
+
                                             <table class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
@@ -52,31 +73,54 @@
                                                         <th>Food name</th>
                                                         <th>Total Price</th>
                                                         <th>Quantity</th>
-                                                        <th>Status</th>
                                                         <th>Customer</th>
                                                         <th>Time</th>
                                                         <th>Paid</th>
+                                                        <th>Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($orders as $order)
                                                         <tr>
                                                             <td>{{ $order->order_number }}</td>
-                                                            <td><img src="{{ asset('images/' . $order->product->image) }}" alt="" style="width: 120px; height: 80px;"></td>
+                                                            <td><img src="{{ asset('images/' . $order->product->image) }}"
+                                                                    alt="" style="width: 120px; height: 80px;">
+                                                            </td>
                                                             <td>{{ $order->special_request }}</td>
                                                             <td>{{ $order->product->title }}</td>
-                                                            <td>{{ $order->total_price }}</td>
+                                                            <td>$ {{ $order->total_price }}</td>
                                                             <td>{{ $order->quantity }}</td>
-                                                            <td>{{ $order->status }}</td>
                                                             <td>{{ $order->user->name }}</td>
                                                             <td>{{ $order->created_at }}</td>
                                                             <td>{{ $order->payment_method }}</td>
-                                                            
+                                                            <td>
+                                                                <form action="{{ route('orders.update', $order->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <select name="status"
+                                                                        onchange="this.form.submit()">
+                                                                        <option value="pending"
+                                                                            {{ $order->status == 'pending' ? 'selected' : '' }}>
+                                                                            Pending</option>
+                                                                        <option value="approved"
+                                                                            {{ $order->status == 'approved' ? 'selected' : '' }}>
+                                                                            Approved</option>
+                                                                        <option value="declined"
+                                                                            {{ $order->status == 'declined' ? 'selected' : '' }}>
+                                                                            Declined</option>
+                                                                    </select>
+                                                                </form>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
-
+                                            <div class="clearfix">
+                                                <ul class="paginations">
+                                                    {{ $orders->appends(['search' => request('search')])->links() }}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
