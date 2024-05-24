@@ -58,8 +58,8 @@
             </ul>
           </li>
         </ul>
-        <div class="ms-3" data-toggle="modal" data-target="#cartModal" style="cursor: pointer;">
-          <i class="fa-solid fa-cart-shopping fs-4"></i>
+        <div class="ms-3" style="cursor: pointer;">
+          <a href="cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
         </div>
         
       </nav><!-- .navbar -->
@@ -77,7 +77,7 @@
           <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
           <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#menu" class="btn-book-a-table">Add to cart food</a>
+            <a href="#menu" class="btn-book-a-table">Explore food</a>
           </div>
         </div>
         <div class="col-lg-5 Add to cart-1 Add to cart-lg-2 text-center text-lg-start">
@@ -178,9 +178,11 @@
                                                         <p class="price">
                                                         ${{ $product->price }}
                                                         </p>
-                                                        <div>
-                                                            <a href="#" class="btn btn-primary">Add to cart</a>
-                                                        </div>
+                                                        <form action="{{ route('cart.add') }}" method="POST">
+                                                          @csrf
+                                                          <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                          <button type="submit" class="btn btn-primary">Add to cart</button>
+                                                      </form>
                                                     </div>
                                                 </div>
                                             </div>

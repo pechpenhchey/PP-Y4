@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CartController;
  
 Route::get('/', function () {
     return view('welcome');
@@ -54,12 +55,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::post('/orders', [OrderController::class, 'create'])->name('orders.create');
-    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::post('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-    Route::get('/admin/orders/pending', [OrderController::class, 'pendingOrders'])->name('admin.orders.pending');
+
+
+Route::middleware('auth')->group(function () {
+    Route::post('/home/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/home/cart', [CartController::class, 'showCart'])->name('cart.show');
+    Route::delete('/home/cart/{cartId}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+    Route::put('/home/cart/{cartItem}', [CartController::class, 'updateCartItem'])->name('cart.update');
+
 });
 
 require __DIR__.'/auth.php';
