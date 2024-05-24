@@ -48,25 +48,30 @@
                                                     <tr>
                                                         <th>Order No.</th>
                                                         <th>Image</th>
+                                                        <th>Remark</th>
                                                         <th>Food name</th>
                                                         <th>Total Price</th>
                                                         <th>Quantity</th>
                                                         <th>Status</th>
-                                                        <th>By</th>
+                                                        <th>Customer</th>
                                                         <th>Time</th>
+                                                        <th>Paid</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($orders as $order)
                                                         <tr>
                                                             <td>{{ $order->order_number }}</td>
-                                                            <td>{{ $order->product_image }}</td>
-                                                            <td>{{ $order->product_name }}</td>
+                                                            <td><img src="{{ asset('images/' . $order->product->image) }}" alt="" style="width: 120px; height: 80px;"></td>
+                                                            <td>{{ $order->special_request }}</td>
+                                                            <td>{{ $order->product->title }}</td>
                                                             <td>{{ $order->total_price }}</td>
                                                             <td>{{ $order->quantity }}</td>
                                                             <td>{{ $order->status }}</td>
-                                                            <td>{{ $order->create_at }}</td>
-                                                            <td>{{ $order->user_id }}</td>
+                                                            <td>{{ $order->user->name }}</td>
+                                                            <td>{{ $order->created_at }}</td>
+                                                            <td>{{ $order->payment_method }}</td>
+                                                            
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

@@ -46,7 +46,7 @@ class CartController extends Controller
         }
 
         $cartItem->delete();
-
+        
         return redirect()->back()->with('success', 'Product removed from cart successfully!');
     }
     public function updateCartItem(Request $request, Cart $cartItem)

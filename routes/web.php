@@ -55,6 +55,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
 });
 
+Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
+Route::middleware('auth', 'admin')->group(function () {
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+});
+
 
 
 Route::middleware('auth')->group(function () {

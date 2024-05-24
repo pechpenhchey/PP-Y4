@@ -59,7 +59,7 @@
           </li>
         </ul>
         <div class="ms-3" style="cursor: pointer;">
-          <a href="cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
+          <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
         </div>
         
       </nav><!-- .navbar -->
