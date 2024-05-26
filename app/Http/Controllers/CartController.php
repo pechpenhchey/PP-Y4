@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 class CartController extends Controller
 {
     use ValidatesRequests;
+
     public function addToCart(Request $request)
     {
         $product_id = $request->input('product_id');
@@ -28,7 +29,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+        return back()->with('success', 'Food added to cart successfully!');
     }
 
     public function showCart()
@@ -46,8 +47,8 @@ class CartController extends Controller
         }
 
         $cartItem->delete();
-        
-        return redirect()->back()->with('success', 'Product removed from cart successfully!');
+
+        return redirect()->back()->with('success', 'Food removed from cart successfully!');
     }
     public function updateCartItem(Request $request, Cart $cartItem)
     {
@@ -59,7 +60,6 @@ class CartController extends Controller
             'quantity' => $request->input('quantity'),
         ]);
 
-        return redirect()->back()->with('success', 'Cart item quantity updated successfully!');
+        return redirect()->back();
     }
-
 }

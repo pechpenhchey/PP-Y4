@@ -71,9 +71,7 @@
                 <div class="col-lg-10 offset-lg-1">
                     <div class="cart_container">
                         <div class="cart_title">Your Cart<small> (item in your cart) </small></div>
-                        @if (session('success'))
-                            <div class="alert alert-success">{{ session('success') }}</div>
-                        @endif
+
                         @if ($cartItems->isEmpty())
                             <p class="p-3 fs-5">Your cart is empty</p>
                         @else
@@ -95,13 +93,18 @@
                                                     class="cart_item_image"></td>
                                             <td>{{ $item->product->title }}</td>
                                             <td>
-                                                <form action="{{ route('cart.update', $item->id) }}" method="POST">
+                                                <form id="updateForm" action="{{ route('cart.update', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
-                                                    <input type="number" name="quantity" value="{{ $item->quantity }}"
-                                                        min="1">
-                                                    <button class="btn btn-primary" type="submit">Update</button>
+                                                    <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" oninput="submitForm()">
                                                 </form>
+    
+                                                <script>
+                                                    function submitForm() {
+                                                        document.getElementById('updateForm').submit();
+                                                    }
+                                                </script>
+                                                
                                             </td>
                                             <td>${{ $item->product->price }}</td>
                                             <td>${{ $item->product->price * $item->quantity }}</td>
@@ -109,7 +112,7 @@
                                                 <form action="{{ route('cart.delete', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger" type="submit">Remove</button>
+                                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-delete-left"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

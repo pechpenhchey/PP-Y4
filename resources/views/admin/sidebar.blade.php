@@ -54,11 +54,22 @@
             <span>Category</span>
         </a>
     </li>
+
+    @php
+        $newOrdersCount = app('App\Http\Controllers\OrderController')->countNewOrders();
+        $showOrders = session('show_orders');
+    @endphp
+
     <li class="nav-item ps-4">
         <a class="nav-link collapsed" href="{{ route('orders.index') }}" aria-expanded="true"
             aria-controls="collapseUtilities">
             <i class="fa-solid fa-cart-shopping"></i>
             <span>Order</span>
+            @if (!$showOrders && $newOrdersCount > 0)
+                <span class="ms-4 border-2 p-1" style="color: red; border-color: red;">
+                    <span style="color: yellowgreen;">{{ $newOrdersCount }} </span> New !!
+                </span>
+            @endif
         </a>
     </li>
 </ul>

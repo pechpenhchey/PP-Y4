@@ -35,7 +35,8 @@
                                                         <h2>Order <b>Management</b></h2>
                                                     </div>
                                                     <div class="col-sm-7">
-                                                        <a href="{{-- {{ route('admin/products/create') }} --}}" class="btn btn-secondary"><i
+                                                        <a href="{{ route('admin.orders.create') }}"
+                                                            class="btn btn-secondary"><i
                                                                 class="material-icons">&#xE147;</i> <span>Add</span></a>
                                                         <form method="GET" action="{{ route('orders.index') }}"
                                                             class="d-inline-block">
@@ -57,12 +58,11 @@
                                                 </div>
                                             </div>
                                             <hr />
-                                            @if (session('status'))
-                                                <div class="alert alert-{{ session('status') }}">
-                                                    {{ session('message') }}
+                                            @if (Session::has('success'))
+                                                <div class="alert alert-success" role="alert">
+                                                    {{ Session::get('success') }}
                                                 </div>
                                             @endif
-
 
                                             <table class="table table-striped table-hover">
                                                 <thead>
@@ -70,11 +70,10 @@
                                                         <th>Order No.</th>
                                                         <th>Image</th>
                                                         <th>Remark</th>
-                                                        <th>Food name</th>
-                                                        <th>Total Price</th>
+                                                        <th>Food</th>
+                                                        <th>Total</th>
                                                         <th>Quantity</th>
                                                         <th>Customer</th>
-                                                        <th>Time</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
                                                     </tr>
@@ -88,10 +87,9 @@
                                                             </td>
                                                             <td>{{ $order->special_request }}</td>
                                                             <td>{{ $order->product->title }}</td>
-                                                            <td>$ {{ $order->total_price }}</td>
-                                                            <td>{{ $order->quantity }}</td>
+                                                            <td>${{ $order->total_price }}</td>
+                                                            <td class="text-center">{{ $order->quantity }}</td>
                                                             <td>{{ $order->user->name }}</td>
-                                                            <td>{{ $order->created_at }}</td>
                                                             <td>{{ $order->payment_method }}</td>
                                                             <td>
                                                                 <form action="{{ route('orders.update', $order->id) }}"
