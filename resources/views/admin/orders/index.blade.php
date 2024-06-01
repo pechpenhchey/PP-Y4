@@ -57,13 +57,6 @@
 
                                                 </div>
                                             </div>
-                                            <hr />
-                                            @if (Session::has('success'))
-                                                <div class="alert alert-success" role="alert">
-                                                    {{ Session::get('success') }}
-                                                </div>
-                                            @endif
-
                                             <table class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
@@ -98,13 +91,13 @@
                                                                     @method('PUT')
                                                                     <select name="status"
                                                                         onchange="this.form.submit()">
-                                                                        <option value="pending"
+                                                                        <option value="pending" class="text-warning"
                                                                             {{ $order->status == 'pending' ? 'selected' : '' }}>
                                                                             Pending</option>
-                                                                        <option value="approved"
+                                                                        <option value="approved" class="text-success"
                                                                             {{ $order->status == 'approved' ? 'selected' : '' }}>
                                                                             Approved</option>
-                                                                        <option value="declined"
+                                                                        <option value="declined" class="text-danger"
                                                                             {{ $order->status == 'declined' ? 'selected' : '' }}>
                                                                             Declined</option>
                                                                     </select>
