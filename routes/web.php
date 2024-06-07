@@ -33,6 +33,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/products/edit/{id}', [ProductController::class, 'edit'])->name('admin/products/edit');
     Route::put('/admin/products/edit/{id}', [ProductController::class, 'update'])->name('admin/products/update');
     Route::get('/admin/products/delete/{id}', [ProductController::class, 'delete'])->name('admin/products/delete');
+    Route::delete('/admin/products/delete/{id}', [ProductController::class, 'delete'])->name('admin.products.delete');
 
     Route::resource('categories', CategoryController::class)->except(['show']);
 
@@ -40,7 +41,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
     Route::post('admin/categories', [CategoryController::class, 'store'])->name('admin.categories.store');
     Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
-    Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index'); // Define the index route
+    Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
 
     Route::resource('admin/users', UserController::class)->except(['show']);
     Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');

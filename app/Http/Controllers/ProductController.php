@@ -10,27 +10,27 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with('category');
+        $query = Product::with(['category']);
         $search = $request->input('search');
-
+    
         if ($request->has('search')) {
             $query->where('title', 'like', '%' . $search . '%')
-                  ->orWhere('id', 'like', '%' . $search . '%');
+                ->orWhere('id', 'like', '%' . $search . '%');
         }
-
+    
         $products = $query->orderByDesc('id')->paginate(5);
         $total = Product::count();
-        
+    
         return view('admin.product.home', compact('products', 'total', 'search'));
-    }
+    }    
 
     public function showFoodProducts()
     {
         $products = Product::all();
         $categories = Category::all();
         return view('dashboard', ['products' => $products, 'categories' => $categories]);
-    }       
-    
+    }
+
     public function create()
     {
         $categories = Category::all();
@@ -66,8 +66,6 @@ class ProductController extends Controller
         return redirect()->route('admin/products');
     }
 
-
-
     public function edit($id)
     {
         $products = Product::findOrFail($id);
@@ -77,12 +75,14 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        $products = Product::findOrFail($id)->delete();
-        if ($products) {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        if ($product) {
             session()->flash('success', 'Product Deleted Successfully');
             return redirect()->route('admin/products');
         } else {
-            session()->flash('error', 'Product Not Delete successfully');
+            session()->flash('error', 'Error !!');
             return redirect()->route('admin/products');
         }
     }
@@ -107,7 +107,7 @@ class ProductController extends Controller
         }
 
         $product->title = $validation['title'];
-        $product->category_id = $validation['category_id']; 
+        $product->category_id = $validation['category_id'];
         $product->price = $validation['price'];
         $product->description = $validation['description'];
 
@@ -125,5 +125,4 @@ class ProductController extends Controller
 
         return redirect(route('admin/products'));
     }
-
 }

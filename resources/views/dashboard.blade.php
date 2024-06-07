@@ -21,6 +21,16 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#menu">Menu</a></li>
                         <li><a href="#contact">Contact</a></li>
+                        <div class="ms-3" style="cursor: pointer;">
+                            <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+                        </div>
+                        {{-- Notification --}}
+                        <div class="ms-2 me-4" style="cursor: pointer;">
+                            <a href=""><i class="fas fa-bell fs-5"></i>
+                                <span class="badge rounded-pill badge-notification bg-danger">9
+                                </span>
+                            </a>
+                        </div>
                         <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i
                                     class="bi bi-chevron-down dropdown-indicator"></i></a>
                             <ul>
@@ -59,9 +69,6 @@
                     </ul>
                     </li>
                     </ul>
-                    <div class="ms-3" style="cursor: pointer;">
-                        <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
-                    </div>
 
                 </nav><!-- .navbar -->
                 <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -104,8 +111,8 @@
 
                     <div class="row gy-4">
                         <div class="col-lg-7 position-relative about-img"
-                            style="background-image: url(assets/img/about.jpg) ;" data-aos="fade-up"
-                            data-aos-delay="150">
+                            style="background-image: url(https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg);"
+                            data-aos="fade-up" data-aos-delay="150">
                             <div class="call-us position-absolute">
                                 <h4>Book a Table</h4>
                                 <p>+1 5589 55488 55</p>
@@ -135,7 +142,7 @@
                                 </p>
 
                                 <div class="position-relative mt-4">
-                                    <img src="assets/img/about-2.jpg" class="img-fluid" alt="">
+                                    <img src="https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg" class="img-fluid" alt="">
                                     <a href="https://www.youtube.com/" class="glightbox play-btn"></a>
                                 </div>
                             </div>
@@ -192,7 +199,8 @@
                                                                 </h4>
                                                                 <h5 class="menu-category ms-3 mb-3"
                                                                     style="color: green;">
-                                                                    {{ $product->category->name }}</h5>
+                                                                    {{ $product->category->name ?? 'No Category' }}
+                                                                </h5>
                                                             </div>
                                                             <div
                                                                 class="menu-footer d-flex justify-content-between align-items-center">
@@ -285,7 +293,8 @@
                                                                             {{ $product->title }}</h4>
                                                                         <h5 class="menu-category ms-3 mb-3"
                                                                             style="color: green;">
-                                                                            {{ $product->category->name }}</h5>
+                                                                            {{ $product->category->name ?? 'No Category' }}
+                                                                        </h5>
                                                                     </div>
                                                                     <div
                                                                         class="menu-footer d-flex justify-content-between align-items-center">
@@ -375,7 +384,7 @@
 
                     <div class="mb-3">
                         <iframe style="bAdd to cart:0; width: 100%; height: 350px;"
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.773035617568!2d104.88924327693495!3d11.568121794920096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109519fe4077d69%3A0x20138e822e434660!2sRoyal%20University%20of%20Phnom%20Penh!5e0!3m2!1sen!2skh!4v1717785996720!5m2!1sen!2skh"
                             framebAdd to cart="0" allowfullscreen></iframe>
                     </div><!-- End Google Maps -->
 
@@ -383,40 +392,40 @@
 
                         <div class="col-md-6">
                             <div class="info-item  d-flex align-items-center">
-                                <i class="icon bi bi-map flex-shrink-0"></i>
+                                <i class="icon fa-solid fa-location-dot flex-shrink-0"></i>
                                 <div>
                                     <h3>Our Address</h3>
-                                    <p>A108 Adam Street, New York, NY 535022</p>
+                                    <p>Rupp</p>
                                 </div>
                             </div>
                         </div><!-- End Info Item -->
 
                         <div class="col-md-6">
                             <div class="info-item d-flex align-items-center">
-                                <i class="icon bi bi-envelope flex-shrink-0"></i>
+                                <i class="icon fa-solid fa-envelope flex-shrink-0"></i>
                                 <div>
                                     <h3>Email Us</h3>
-                                    <p>contact@example.com</p>
+                                    <p>contact@gmail.com</p>
                                 </div>
                             </div>
                         </div><!-- End Info Item -->
 
                         <div class="col-md-6">
                             <div class="info-item  d-flex align-items-center">
-                                <i class="icon bi bi-telephone flex-shrink-0"></i>
+                                <i class="icon fa-solid fa-phone flex-shrink-0"></i>
                                 <div>
                                     <h3>Call Us</h3>
-                                    <p>+1 5589 55488 55</p>
+                                    <p>+855 11548073</p>
                                 </div>
                             </div>
                         </div><!-- End Info Item -->
 
                         <div class="col-md-6">
                             <div class="info-item  d-flex align-items-center">
-                                <i class="icon bi bi-share flex-shrink-0"></i>
+                                <i class="icon fa-solid fa-clock flex-shrink-0"></i>
                                 <div>
                                     <h3>Opening Hours</h3>
-                                    <div><strong>Mon-Sat:</strong> 11AM - 23PM;
+                                    <div><strong>Mon-Sat:</strong> 9AM - 22PM;
                                         <strong>Sunday:</strong> Closed
                                     </div>
                                 </div>
@@ -439,22 +448,11 @@
                         <div>
                             <h4>Address</h4>
                             <p>
-                                A108 Adam Street <br>
-                                New York, NY 535022 - US<br>
+                                ITE Y3<br>
+                                RUPP<br>
                             </p>
                         </div>
 
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links d-flex">
-                        <i class="bi bi-telephone icon"></i>
-                        <div>
-                            <h4>Reservations</h4>
-                            <p>
-                                <strong>Phone:</strong> +1 5589 55488 55<br>
-                                <strong>Email:</strong> info@example.com<br>
-                            </p>
-                        </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links d-flex">
@@ -462,7 +460,7 @@
                         <div>
                             <h4>Opening Hours</h4>
                             <p>
-                                <strong>Mon-Sat: 11AM</strong> - 23PM<br>
+                                <strong>Mon-Sat: 9AM</strong> - 22PM<br>
                                 Sunday: Closed
                             </p>
                         </div>
@@ -471,10 +469,10 @@
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Follow Us</h4>
                         <div class="social-links d-flex">
-                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="twitter"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="facebook"><i class="fa-brands fa-x"></i></a>
+                            <a href="#" class="instagram"><i class="fa-brands fa-telegram"></i></a>
+                            <a href="#" class="linkedin"><i class="fa-brands fa-youtube"></i></a>
                         </div>
                     </div>
 

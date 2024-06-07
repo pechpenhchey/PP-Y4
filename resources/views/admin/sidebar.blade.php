@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon">
             <i class="fa-solid fa-user-tie"></i>
         </div>
-        <div class="sidebar-brand-text mx-4">Admin</div>
+        <div class="sidebar-brand-text mx-4">{{ Auth::user()->name }}</div>
     </a>
 
     <!-- Divider -->

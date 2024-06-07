@@ -11,7 +11,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_number')->unique();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('restrict');
             $table->decimal('total_price', 10, 2);
             $table->integer('quantity');
             $table->string('status')->default('pending');
@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment_method');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
