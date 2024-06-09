@@ -3,34 +3,54 @@
 
     <head>
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/search.css') }}" rel="stylesheet">
     </head>
 
     <body>
-        @include('cartTable')
-
         <!-- ======= Header ======= -->
         <header id="header" class="header fixed-top d-flex align-items-center">
             <div class="container d-flex align-items-center justify-content-between">
-                <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+                <a href="/home" class="logo d-flex align-items-center me-auto me-lg-0">
                     <h1>HFood<span>.</span></h1>
                 </a>
 
                 <nav id="navbar" class="navbar">
                     <ul>
                         <li><a href="#hero">Home</a></li>
-                        <li><a href="#about">About</a></li>
                         <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <div class="ms-3" style="cursor: pointer;">
                             <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
                         </div>
+                        
                         {{-- Notification --}}
-                        <div class="ms-2 me-4" style="cursor: pointer;">
-                            <a href=""><i class="fas fa-bell fs-5"></i>
-                                <span class="badge rounded-pill badge-notification bg-danger">9
-                                </span>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw" style="font-size: 20px"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger" style="font-size: 10px; position: absolute; top: -19px; right: 6px;">7</span>
                             </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Your Orders Notification
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="Ordered products image">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">Ordered products title</div>
+                                        <div class="small text-gray-500">(Your food is coming(if admin aprrove), Out of stock(if admin desline), Original(pending))</div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
+
                         <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i
                                     class="bi bi-chevron-down dropdown-indicator"></i></a>
                             <ul>
@@ -91,66 +111,14 @@
                         </div>
                     </div>
                     <div class="col-lg-5 Add to cart-1 Add to cart-lg-2 text-center text-lg-start">
-                        <img src="https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/topic_centers/2020-5/salmon-avocado-eggs-1296x728-header.jpg?w=1155&h=1528"
-                            class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+                        <img src="https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg" class="img-fluid"
+                            alt="" data-aos="zoom-out" data-aos-delay="300">
                     </div>
                 </div>
             </div>
         </section><!-- End Hero Section -->
 
         <main id="main">
-
-            <!-- ======= About Section ======= -->
-            <section id="about" class="about">
-                <div class="container" data-aos="fade-up">
-
-                    <div class="section-header">
-                        <h2>About Us</h2>
-                        <p>Learn More <span>About Us</span></p>
-                    </div>
-
-                    <div class="row gy-4">
-                        <div class="col-lg-7 position-relative about-img"
-                            style="background-image: url(https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg);"
-                            data-aos="fade-up" data-aos-delay="150">
-                            <div class="call-us position-absolute">
-                                <h4>Book a Table</h4>
-                                <p>+1 5589 55488 55</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
-                            <div class="content ps-0 ps-lg-5">
-                                <p class="fst-italic">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore
-                                    magna aliqua.
-                                </p>
-                                <ul>
-                                    <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.</li>
-                                    <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in
-                                        voluptate velit.</li>
-                                    <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat. Duis aute irure dolor in reprehenderit in voluptate trideta
-                                        storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-                                </ul>
-                                <p>
-                                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate
-                                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                    non proident
-                                </p>
-
-                                <div class="position-relative mt-4">
-                                    <img src="https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg" class="img-fluid" alt="">
-                                    <a href="https://www.youtube.com/" class="glightbox play-btn"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section><!-- End About Section -->
 
             <!-- ======= Menu Section ======= -->
             <section id="menu" class="menu">
@@ -160,7 +128,14 @@
                         <h2>Our Menu</h2>
                         <p>Check Our <span>Healthy Menu</span></p>
                     </div>
-
+                    {{-- Search --}}
+                    <div class="search mb-5">
+                        {{-- <form action="{{ route('food.products.search') }}" method="GET">
+                            <i class="fa fa-search"></i>
+                            <input type="text" name="search" class="form-control" placeholder="Search by title, price, or category">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form> --}}
+                    </div>
                     <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#menu-all">
@@ -242,6 +217,9 @@
                                                                     alt="{{ $product->title }}" class="img-fluid">
                                                             </div>
                                                             <div class="col-md-6">
+                                                                <p class="price">
+                                                                    ${{ $product->price }}/each
+                                                                </p>
                                                                 <div class="fs-5 my-1 text-warning">Information:</div>
                                                                 <p>{!! $product->description !!}</p>
                                                             </div>
@@ -269,8 +247,10 @@
                                 <!-- Display products for this category -->
                                 <div class="row">
                                     @if ($category->products->isEmpty())
-                                        <div class="col-md-12 pt-5 fs-3 text-info">
-                                            <h1 class="text-center">No Food Available !!</h1>
+                                        <div class="col-md-12 pt-5 d-flex justify-content-center">
+                                            <img class="img-fluid" style="max-width: 500px; height: 300px;"
+                                                src="https://cdn.iconscout.com/icon/premium/png-256-thumb/no-item-found-4372183-3626865.png?f=webp"
+                                                alt="NoFound">
                                         </div>
                                     @else
                                         @foreach ($category->products as $product)
@@ -343,6 +323,9 @@
                                                                             class="img-fluid">
                                                                     </div>
                                                                     <div class="col-md-6">
+                                                                        <p class="price">
+                                                                            ${{ $product->price }}/each
+                                                                        </p>
                                                                         <div class="fs-5 my-1 text-warning">
                                                                             Information:</div>
                                                                         <p>{!! $product->description !!}</p>
@@ -368,10 +351,66 @@
                             </div>
                         @endforeach
                     </div>
-
+                    <div class="clearfix">
+                        <ul class="paginations">
+                            {{ $products->appends(['search' => request('search')])->links() }}
+                        </ul>
+                    </div>
                 </div>
             </section><!-- End Menu Section -->
 
+            <!-- ======= About Section ======= -->
+            <section id="about" class="about">
+                <div class="container" data-aos="fade-up">
+
+                    <div class="section-header">
+                        <h2>About Us</h2>
+                        <p>Learn More <span>About Us</span></p>
+                    </div>
+
+                    <div class="row gy-4">
+                        <div class="col-lg-7 position-relative about-img"
+                            style="background-image: url(https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg);"
+                            data-aos="fade-up" data-aos-delay="150">
+                            <div class="call-us position-absolute">
+                                <h4>Book a Table</h4>
+                                <p>+1 5589 55488 55</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+                            <div class="content ps-0 ps-lg-5">
+                                <p class="fst-italic">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore
+                                    magna aliqua.
+                                </p>
+                                <ul>
+                                    <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                                        consequat.</li>
+                                    <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in
+                                        voluptate velit.</li>
+                                    <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                                        consequat. Duis aute irure dolor in reprehenderit in voluptate trideta
+                                        storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+                                </ul>
+                                <p>
+                                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate
+                                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                    non proident
+                                </p>
+
+                                <div class="position-relative mt-4">
+                                    <img src="https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg"
+                                        class="img-fluid" alt="">
+                                    <a href="https://www.youtube.com/" class="glightbox play-btn"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section><!-- End About Section -->
 
             <!-- ======= Contact Section ======= -->
             <section id="contact" class="contact">
@@ -415,7 +454,7 @@
                                 <i class="icon fa-solid fa-phone flex-shrink-0"></i>
                                 <div>
                                     <h3>Call Us</h3>
-                                    <p>+855 11548073</p>
+                                    <p>+855 12345678</p>
                                 </div>
                             </div>
                         </div><!-- End Info Item -->
@@ -442,7 +481,7 @@
         <footer id="footer" class="footer">
 
             <div class="container">
-                <div class="row gy-3">
+                <div class="row gy-3 d-flex justify-content-center">
                     <div class="col-lg-3 col-md-6 d-flex">
                         <i class="bi bi-geo-alt icon"></i>
                         <div>

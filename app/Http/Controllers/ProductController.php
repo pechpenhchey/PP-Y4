@@ -24,12 +24,27 @@ class ProductController extends Controller
         return view('admin.product.home', compact('products', 'total', 'search'));
     }    
 
-    public function showFoodProducts()
+    public function showFoodProducts(Request $request)
     {
-        $products = Product::all();
+        $query = Product::query();
+
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->input('title') . '%');
+        }
+
+        if ($request->has('price')) {
+            $query->where('price', '=', $request->input('price'));
+        }
+
+        if ($request->has('category_id')) {
+            $query->where('category_id', '=', $request->input('category_id'));
+        }
+    
+        $products = $query->paginate(12);
         $categories = Category::all();
+        
         return view('dashboard', ['products' => $products, 'categories' => $categories]);
-    }
+    }    
 
     public function create()
     {

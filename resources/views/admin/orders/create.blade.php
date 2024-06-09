@@ -82,14 +82,13 @@
                                             <div class="col-lg-1 col-md-3" style="width: 100px">
                                                 <button type="submit" class="btn btn-primary">Create</button>
                                             </div>
-                                            <div class="col-lg-1 col-md-3" style="width: 100px">
-                                                <button class="btn btn-danger">
-                                                    <a class="text-decoration-none text-white" href="{{ route('orders.index') }}">Cancel</a>
-                                                </button>
-                                            </div>
                                         </div>
                                     </form>
-                                    
+                                    <div class="col-lg-1 col-md-3" style="width: 100px; margin-top: -38px; margin-left: 80px;">
+                                        <button class="btn btn-danger">
+                                            <a class="text-decoration-none text-white" href="{{ route('orders.index') }}">Cancel</a>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

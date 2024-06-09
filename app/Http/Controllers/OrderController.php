@@ -136,4 +136,40 @@ class OrderController extends Controller
         $newOrdersCount = Order::where('status', 'pending')->count();
         return $newOrdersCount;
     }
+
+    public function showRevenueForm()
+    {
+        $totalAmount = null;
+        $income = null;
+        $outcome = null;
+        $startDate = null;
+        $endDate = null;
+
+        return view('admin.revenue_form', compact('totalAmount', 'income', 'outcome', 'startDate', 'endDate'));
+    }
+
+    public function calculateRevenue(Request $request)
+    {
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+
+        $totalAmount = Order::whereBetween('created_at', [$startDate, $endDate])->sum('total_price');
+
+        $income = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->where('total_price', '>', 0)
+            ->sum('total_price');
+
+        $outcome = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->where('total_price', '<', 0)
+            ->sum('total_price');
+
+        $outcome = abs($outcome);
+
+        return view('admin.revenue_form', compact('totalAmount', 'income', 'outcome', 'startDate', 'endDate'));
+    }
 }

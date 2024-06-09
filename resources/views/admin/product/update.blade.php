@@ -81,11 +81,13 @@
                                 <div class="col-lg-1 col-md-3" style="width: 100px">
                                     <button class="btn btn-primary">Update</button>
                                 </div>
-                                <div class="col-lg-1 col-md-3" style="width: 100px">
-                                    <button class="btn btn-danger"><a class="text-decoration-none text-white" href="{{ route('admin/products') }}">Cancel</a></button>
-                                </div>
                             </div>
                         </form>
+                        <div class="col-lg-1 col-md-3" style="width: 100px; margin-top: -38px; margin-left: 80px;">
+                            <button class="btn btn-danger">
+                                <a class="text-decoration-none text-white" href="{{ route('admin/products') }}">Cancel</a>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

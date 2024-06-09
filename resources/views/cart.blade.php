@@ -112,8 +112,10 @@
                                                 <form action="{{ route('cart.delete', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-delete-left"></i></button>
-                                                </form>
+                                                    <a href="javascript:void(0);" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete('{{ route('cart.delete', $item->id) }}')">
+                                                        <i class="material-icons">&#xE5C9;</i>
+                                                    </a>                                     
+                                                </form>                                                
                                             </td>
                                         </tr>
                                     @endforeach

@@ -55,6 +55,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/orders/create', [OrderController::class, 'create'])->name('admin.orders.create');
     Route::post('/admin/orders', [OrderController::class, 'store'])->name('admin.orders.store');    
 
+    Route::get('admin/revenue', [OrderController::class, 'showRevenueForm'])->name('admin.revenue.form');
+    Route::post('admin/revenue', [OrderController::class, 'calculateRevenue'])->name('admin.revenue.calculate');
 });
 
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
