@@ -36,8 +36,11 @@ class CartController extends Controller
     {
         $userId = Auth::id();
         $cartItems = Cart::where('user_id', $userId)->with('product')->get();
-        return view('cart', compact('cartItems'));
+        $totalCount = $cartItems->count();
+
+        return view('cart', compact('cartItems', 'totalCount'));
     }
+
     public function deleteCartItem($cartId)
     {
         $cartItem = Cart::find($cartId);

@@ -1,6 +1,5 @@
 <x-app-layout>
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
     <body id="page-top">
         <!-- Page Wrapper -->

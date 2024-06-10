@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
                     <div class="cart_container">
-                        <div class="cart_title">Your Cart<small> (item in your cart) </small></div>
+                        <div class="cart_title">Your Cart<small> ({{ $totalCount }}) </small></div>
 
                         @if ($cartItems->isEmpty())
                             <p class="p-3 fs-5">Your cart is empty</p>
