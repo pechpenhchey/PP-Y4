@@ -79,7 +79,7 @@
                                                             <td>{{ $product->title }}</td>
                                                             <td>{{ $product->category->name ?? 'No Category' }}</td>
                                                             <td>{!! $product->description !!}</td>
-                                                            <td>$ {{ $product->price }}</td>
+                                                            <td>${{ $product->price }}</td>
                                                             <td>
                                                                 <a href="{{ route('admin/products/edit', ['id' => $product->id]) }}"
                                                                     class="settings" title="Settings"

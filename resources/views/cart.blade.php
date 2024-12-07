@@ -15,12 +15,15 @@
                     <li><a href="/home/#about">About</a></li>
                     <li><a href="/home/#menu">Menu</a></li>
                     <li><a href="/home/#contact">Contact</a></li>
-                    <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i
-                                class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <div class="cart-container">
+                        <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
+                        @if ($totalCount > 0)
+                            <span class="badge">{{ $totalCount }}</span>
+                        @endif
+                    </div>
+                    <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
-                            <li><x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
+                            <li><x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link></li>
                             <li>
                                 @auth
                                     @if (auth()->user()->isUser())
@@ -42,25 +45,17 @@
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-
                                 <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
+                        </ul>
                     </li>
                 </ul>
-                </li>
-                </ul>
-                <div class="ms-3" style="cursor: pointer;">
-                    <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
-                </div>
-
             </nav><!-- .navbar -->
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
         </div>
     </header><!-- End Header -->
 
@@ -89,22 +84,14 @@
                                 <tbody>
                                     @foreach ($cartItems as $item)
                                         <tr>
-                                            <td><img src="{{ asset('images/' . $item->product->image) }}" alt=""
-                                                    class="cart_item_image"></td>
+                                            <td><img src="{{ asset('images/' . $item->product->image) }}" alt="" class="cart_item_image"></td>
                                             <td>{{ $item->product->title }}</td>
                                             <td>
-                                                <form id="updateForm" action="{{ route('cart.update', $item->id) }}" method="POST">
+                                                <form id="updateForm-{{ $item->id }}" action="{{ route('cart.update', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
-                                                    <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" oninput="submitForm()">
+                                                    <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" oninput="submitForm({{ $item->id }})">
                                                 </form>
-    
-                                                <script>
-                                                    function submitForm() {
-                                                        document.getElementById('updateForm').submit();
-                                                    }
-                                                </script>
-                                                
                                             </td>
                                             <td>${{ $item->product->price }}</td>
                                             <td>${{ $item->product->price * $item->quantity }}</td>
@@ -114,8 +101,8 @@
                                                     @method('DELETE')
                                                     <a href="javascript:void(0);" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete('{{ route('cart.delete', $item->id) }}')">
                                                         <i class="material-icons">&#xE5C9;</i>
-                                                    </a>                                     
-                                                </form>                                                
+                                                    </a>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -128,9 +115,7 @@
                             <div class="order_total_content text-md-right">
                                 <div class="order_total_title">Order Total:</div>
                                 <div class="order_total_amount">
-                                    ${{ $cartItems->sum(function ($item) {
-                                        return $item->product->price * $item->quantity;
-                                    }) }}
+                                    ${{ $orderTotal }}
                                 </div>
                             </div>
                         </div>
@@ -138,39 +123,28 @@
                             <form method="POST" action="{{ route('checkout') }}">
                                 @csrf
                                 @foreach ($cartItems as $item)
-                                    <input type="hidden" name="items[{{ $item->product->id }}][product_id]"
-                                        value="{{ $item->product->id }}">
-                                    <input type="hidden" name="items[{{ $item->product->id }}][quantity]"
-                                        value="{{ $item->quantity }}">
-                                    <input type="hidden" name="items[{{ $item->product->id }}][special_request]"
-                                        value="{{ $item->special_request }}">
-                                    <input type="hidden" name="items[{{ $item->product->id }}][total_price]"
-                                        value="{{ $item->product->price * $item->quantity }}">
+                                    <input type="hidden" name="items[{{ $item->product->id }}][product_id]" value="{{ $item->product->id }}">
+                                    <input type="hidden" name="items[{{ $item->product->id }}][quantity]" value="{{ $item->quantity }}">
+                                    <input type="hidden" name="items[{{ $item->product->id }}][special_request]" value="{{ $item->special_request }}">
+                                    <input type="hidden" name="items[{{ $item->product->id }}][total_price]" value="{{ $item->product->price * $item->quantity }}">
                                 @endforeach
                                 <div class="payment_options">
                                     <h4 class="pb-3 pt-4">Payment Method:</h4>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment_method"
-                                            id="pay_cash" value="cash" checked>
-                                        <label class="form-check-label" for="pay_cash">
-                                            Pay by Cash
-                                        </label>
+                                        <input class="form-check-input" type="radio" name="payment_method" id="pay_cash" value="cash" checked>
+                                        <label class="form-check-label" for="pay_cash">Cash</label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment_method"
-                                            id="pay_other" value="KHQR">
-                                        <label class="form-check-label" for="pay_other">
-                                            Pay by Card
-                                        </label>
-                                    </div>
+                                    {{-- <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="pay_other" value="KHQR">
+                                        <label class="form-check-label" for="pay_other">Card</label>
+                                    </div> --}}
                                 </div>
                                 <div class="message_box py-3">
                                     <h2 class="pb-3 fs-5">Special Request (if any):</h2>
                                     <textarea name="special_request" id="special_request" rows="3" class="form-control"></textarea>
                                 </div>
                                 <div class="cart_buttons">
-                                    <button type="button" class="button cart_button_clear"><a class="text-black"
-                                            href="/home/#menu">Continue Shopping</a></button>
+                                    <button type="button" class="button cart_button_clear"><a class="text-black" href="/home/#menu">Continue Shopping</a></button>
                                     <button type="submit" class="button cart_button_checkout">Check out</button>
                                 </div>
                             </form>
@@ -181,4 +155,17 @@
         </div>
     </div>
 
+    <script>
+        function submitForm(itemId) {
+            document.getElementById('updateForm-' + itemId).submit();
+        }
+
+        function confirmDelete(url) {
+            if (confirm('Are you sure you want to remove this item from the cart?')) {
+                window.location.href = url;
+            }
+        }
+    </script>
+
 </x-app-layout>
+

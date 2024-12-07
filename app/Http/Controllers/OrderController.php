@@ -9,6 +9,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\OrderPlacedNotification;
+use App\Notifications\OrderStatusNotification;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -26,6 +29,12 @@ class OrderController extends Controller
         }
 
         return view('admin.orders.create', compact('products', 'users', 'totalPrice'));
+    }
+
+    public function show($id)
+    {
+        $order = Order::with(['product', 'user'])->findOrFail($id);
+        return view('admin.orders.show', compact('order'));
     }
 
     public function store(Request $request)
@@ -52,9 +61,12 @@ class OrderController extends Controller
         $order->special_request = $request->special_request;
         $order->save();
 
+        // Notify admin of the new order
+        $admins = User::where('is_admin', true)->get();
+        Notification::send($admins, new OrderPlacedNotification($order));
+
         return redirect()->route('orders.index')->with('success', 'Order created successfully');
     }
-
 
     public function checkout(Request $request)
     {
@@ -72,6 +84,7 @@ class OrderController extends Controller
             $order->user_id = $user->id;
             $order->save();
         }
+
         Cart::where('user_id', $user->id)->delete();
 
         return redirect()->route('dashboard')->with('success', 'Order placed successfully!');
@@ -85,7 +98,9 @@ class OrderController extends Controller
 
         if ($search) {
             $ordersQuery->where('order_number', 'like', '%' . $search . '%')
-                ->orWhere('user_id', 'like', '%' . $search . '%');
+                ->orWhereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
         }
 
         if ($request->has('show_orders')) {
@@ -94,9 +109,11 @@ class OrderController extends Controller
             session()->forget('show_orders');
         }
 
-        $orders = $ordersQuery->latest()->paginate(5);
+        $orders = $ordersQuery->orderBy('created_at', 'desc')->paginate(5);
+
         return view('admin.orders.index', compact('orders', 'search'));
     }
+
 
     public function update(Request $request, Order $order)
     {
@@ -158,13 +175,20 @@ class OrderController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        $totalAmount = Order::whereBetween('created_at', [$startDate, $endDate])->sum('total_price');
+        // Total amount for approved orders only
+        $totalAmount = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->where('status', 'approved')
+            ->sum('total_price');
 
+        // Income (positive total price) for approved orders only
         $income = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->where('status', 'approved')
             ->where('total_price', '>', 0)
             ->sum('total_price');
 
+        // Outcome (negative total price) for approved orders only
         $outcome = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->where('status', 'approved')
             ->where('total_price', '<', 0)
             ->sum('total_price');
 

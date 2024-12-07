@@ -9,12 +9,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\CartCountController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/home', [ProductController::class, 'showFoodProducts'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -53,7 +53,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
     Route::get('/admin/orders/create', [OrderController::class, 'create'])->name('admin.orders.create');
-    Route::post('/admin/orders', [OrderController::class, 'store'])->name('admin.orders.store');    
+    Route::post('/admin/orders', [OrderController::class, 'store'])->name('admin.orders.store');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+    // Admin Notifications
+    Route::get('/admin/notifications', [NotificationController::class, 'adminNotifications'])->name('admin.notifications');
 
     Route::get('admin/revenue', [OrderController::class, 'showRevenueForm'])->name('admin.revenue.form');
     Route::post('admin/revenue', [OrderController::class, 'calculateRevenue'])->name('admin.revenue.calculate');
@@ -62,11 +66,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 Route::get('/order-history', [OrderController::class, 'userOrderHistory'])->name('order.history');
 
+// User Notifications
+Route::get('/user/notifications', [NotificationController::class, 'userNotifications'])->name('user.notifications');
+
 Route::middleware('auth')->group(function () {
     Route::post('/home/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/home/cart', [CartController::class, 'showCart'])->name('cart.show');
     Route::delete('/home/cart/{cartId}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
     Route::put('/home/cart/{cartItem}', [CartController::class, 'updateCartItem'])->name('cart.update');
+
+    Route::get('/home', [CartCountController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
 });
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');

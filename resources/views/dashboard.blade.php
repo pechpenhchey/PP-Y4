@@ -3,7 +3,8 @@
 
     <head>
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/search.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
+
     </head>
 
     <body>
@@ -20,35 +21,11 @@
                         <li><a href="#menu">Menu</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
-                        <div class="ms-3" style="cursor: pointer;">
-                            <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
-                        </div>
-                        
-                        {{-- Notification --}}
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw" style="font-size: 20px"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger" style="font-size: 10px; position: absolute; top: -19px; right: 6px;">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Your Orders Notification
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="Ordered products image">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Ordered products title</div>
-                                        <div class="small text-gray-500">(Your food is coming(if admin aprrove), Out of stock(if admin desline), Original(pending))</div>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="cart-container">
+                            <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
+                            @if ($totalCount > 0)
+                                <span class="badge">{{ $totalCount }}</span>
+                            @endif
                         </div>
 
                         <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i
@@ -104,8 +81,8 @@
                     <div
                         class="col-lg-5 Add to cart-2 Add to cart-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
                         <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-                        <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea
-                            consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
+                        <p data-aos="fade-up" data-aos-delay="100">Our website helps users find and enjoy healthy food
+                            by providing information, recipes, and an ordering system.</p>
                         <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                             <a href="#menu" class="btn-book-a-table">Explore food</a>
                         </div>
@@ -218,7 +195,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <p class="price">
-                                                                    ${{ $product->price }}/each
+                                                                    ${{ $product->price }}
                                                                 </p>
                                                                 <div class="fs-5 my-1 text-warning">Information:</div>
                                                                 <p>{!! $product->description !!}</p>
@@ -324,7 +301,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <p class="price">
-                                                                            ${{ $product->price }}/each
+                                                                            ${{ $product->price }}
                                                                         </p>
                                                                         <div class="fs-5 my-1 text-warning">
                                                                             Information:</div>
@@ -374,32 +351,19 @@
                             data-aos="fade-up" data-aos-delay="150">
                             <div class="call-us position-absolute">
                                 <h4>Book a Table</h4>
-                                <p>+1 5589 55488 55</p>
+                                <p>+855 12345678</p>
                             </div>
                         </div>
                         <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
                             <div class="content ps-0 ps-lg-5">
                                 <p class="fst-italic">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore
-                                    magna aliqua.
+                                    Welcome to our platform, your ultimate destination for discovering and savoring
+                                    wholesome, delicious food! Dive into a world of vibrant recipes, insightful
+                                    nutrition tips, and a seamless ordering experience, all designed to nourish your
+                                    body and delight your taste buds. Whether you're a culinary enthusiast or just
+                                    starting your healthy eating journey, we're here to inspire and guide you every step
+                                    of the way. Explore, cook, and enjoy the goodness of healthy living with us!
                                 </p>
-                                <ul>
-                                    <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.</li>
-                                    <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in
-                                        voluptate velit.</li>
-                                    <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat. Duis aute irure dolor in reprehenderit in voluptate trideta
-                                        storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-                                </ul>
-                                <p>
-                                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate
-                                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                    non proident
-                                </p>
-
                                 <div class="position-relative mt-4">
                                     <img src="https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg"
                                         class="img-fluid" alt="">
@@ -420,12 +384,6 @@
                         <h2>Contact</h2>
                         <p>Need Help? <span>Contact Us</span></p>
                     </div>
-
-                    <div class="mb-3">
-                        <iframe style="bAdd to cart:0; width: 100%; height: 350px;"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.773035617568!2d104.88924327693495!3d11.568121794920096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109519fe4077d69%3A0x20138e822e434660!2sRoyal%20University%20of%20Phnom%20Penh!5e0!3m2!1sen!2skh!4v1717785996720!5m2!1sen!2skh"
-                            framebAdd to cart="0" allowfullscreen></iframe>
-                    </div><!-- End Google Maps -->
 
                     <div class="row gy-4">
 

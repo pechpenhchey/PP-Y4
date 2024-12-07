@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -12,17 +14,17 @@ class ProductController extends Controller
     {
         $query = Product::with(['category']);
         $search = $request->input('search');
-    
+
         if ($request->has('search')) {
             $query->where('title', 'like', '%' . $search . '%')
                 ->orWhere('id', 'like', '%' . $search . '%');
         }
-    
+
         $products = $query->orderByDesc('id')->paginate(5);
         $total = Product::count();
-    
+
         return view('admin.product.home', compact('products', 'total', 'search'));
-    }    
+    }
 
     public function showFoodProducts(Request $request)
     {
@@ -39,12 +41,12 @@ class ProductController extends Controller
         if ($request->has('category_id')) {
             $query->where('category_id', '=', $request->input('category_id'));
         }
-    
+
         $products = $query->paginate(12);
         $categories = Category::all();
-        
+
         return view('dashboard', ['products' => $products, 'categories' => $categories]);
-    }    
+    }
 
     public function create()
     {
@@ -57,10 +59,12 @@ class ProductController extends Controller
         $validation = $request->validate([
             'title' => 'required',
             'category_id' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $validation['price'] = floatval($validation['price']);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -109,10 +113,12 @@ class ProductController extends Controller
         $validation = $request->validate([
             'title' => 'required',
             'category_id' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'description' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $validation['price'] = floatval($validation['price']);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');

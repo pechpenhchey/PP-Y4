@@ -73,7 +73,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($orders as $order)
-                                                        <tr>
+                                                        <tr onclick="window.location.href='{{ route('orders.show', $order->id) }}'" style="cursor: pointer;">
                                                             <td>{{ $order->order_number }}</td>
                                                             <td><img src="{{ asset('images/' . $order->product->image) }}"
                                                                     alt="" style="width: 120px; height: 80px;">
@@ -86,10 +86,10 @@
                                                             <td>{{ $order->payment_method }}</td>
                                                             <td>
                                                                 <form action="{{ route('orders.update', $order->id) }}"
-                                                                    method="POST">
+                                                                    method="POST" onsubmit="event.stopPropagation();">
                                                                     @csrf
                                                                     @method('PUT')
-                                                                    <select name="status"
+                                                                    <select name="status" class="status-select"
                                                                         onchange="this.form.submit()">
                                                                         <option value="pending" class="text-warning"
                                                                             {{ $order->status == 'pending' ? 'selected' : '' }}>
@@ -123,6 +123,16 @@
 
                 </div>
                 <!-- End of Page Wrapper -->
+
+        </div>
+
+        <script>
+            document.querySelectorAll('.status-select').forEach(select => {
+                select.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            });
+        </script>
 
     </body>
 

@@ -62,7 +62,7 @@
                                                 <label for="payment_method">Payment Method</label>
                                                 <select name="payment_method" id="payment_method" class="form-control">
                                                     <option value="KHQR" {{ request()->payment_method == 'KHQR' ? 'selected' : '' }}>KHQR</option>
-                                                    <option value="cash" {{ request()->payment_method == 'cash' ? 'selected' : '' }}>cash</option>
+                                                    <option value="cash" {{ request()->payment_method == 'cash' ? 'selected' : '' }}>Cash</option>
                                                 </select>
                                             </div>
                                         </div>
