@@ -48,5 +48,14 @@
                 {{ __('Register') }}
             </x-primary-button>
         </div>
+        <div class="text-center">
+            <p class="py-1">Or sign up with</p>
+            <hr>
+        </div>
+        <div class="text-center py-4 my-3">
+            <a class="btn btn-primary" href="{{ route('google-auth') }}"
+             style="width: 400px;"> <i class="fa-brands fa-google px-2"></i>
+                Google</a>
+        </div>
     </form>
 </x-guest-layout>

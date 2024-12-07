@@ -48,5 +48,13 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->usertype === 'admin';
+    }
+    public function isUser()
+    {
+        return $this->usertype === 'user';
     }   
+    public function userCarts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

@@ -9,17 +9,21 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
-    }
+        $query = User::query();
+        $search = $request->input('search');
 
-    public function totalUsers()
-    {
-        $totalUsers = User::count(); // Get the total count of users
-        return view('admin.dashboard', compact('totalUsers')); // Passes the $totalUsers variable
-    }
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('id', 'like', '%' . $search . '%');
+        }
+
+        $users = $query->orderByDesc('id')->paginate(5);
+        $total = User::count();
+
+        return view('admin.users.index', compact('users', 'total', 'search'));
+    }  
     
     public function create()
     {

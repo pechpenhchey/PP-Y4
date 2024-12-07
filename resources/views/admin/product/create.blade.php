@@ -1,91 +1,113 @@
 <x-app-layout>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-auto sidebar px-0">
-                @include('admin.sidebar')
-            </div>
-            <div class="col">
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    
+    <body id="page-top">
+    
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+    
+            <!-- Sidebar -->
+            @include('admin.sidebar')
+            <!-- End of Sidebar -->
+    
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+    
+                <!-- Main Content -->
+                <div id="content">
+    
+                    <!-- Topbar -->
+                    @include('admin.topbar')
+                    <!-- End of Topbar -->
+    
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- Content Row -->
+                        <div class="col">
                 <div class="py-12">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div class="p-6 text-gray-900">
-                                <h1 class="mb-0">Add Product</h1>
-                                <hr />
-                                @if (session()->has('error'))
-                                <div>
-                                    {{session('error')}}
-                                </div>
-                                @endif
-                                <p><a href="{{ route('admin/products') }}" class="btn btn-primary">Go Back</a></p>
-            
-                                <form action="{{ route('admin/products/save') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <input type="text" name="title" class="form-control" placeholder="Title">
-                                            @error('title')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
+                    <div class="container contact-form">
+                        <hr />
+                        @if (session()->has('error'))
+                            <div>
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <form action="{{ route('admin/products/save') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <span class="fs-5">Add Food</span>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="title" class="form-control" placeholder="Title">
+                                        @error('title')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col">
+                                    <div class="form-group">
                                         <select name="category_id" class="form-control">
                                             <option value="">Select Category</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
-                                            @error('category_id')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                        @error('category_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <input type="number" name="price" class="form-control" placeholder="Price">
-                                            @error('price')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
+                                    <div class="form-group">
+                                        <input type="number" name="price" class="form-control" placeholder="Price" step="0.01" required>
+                                        @error('price')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <textarea id="task-textarea1" name="description" class="form-control" placeholder="Description"></textarea>
-                                            @error('description')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
+                                    <div class="form-group">
+                                        <input type="file" name="image" class="form-control" accept="image/*">
+                                        @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <input type="file" name="image" class="form-control" accept="image/*">
-                                            @error('image')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <textarea id="task-textarea1" name="description" class="form-control" placeholder="Description"></textarea>
+                                        @error('description')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="row">
-                                        <div class="d-grid">
-                                            <button class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
+                            <div class="row d-flex">
+                                <div class="col-lg-1 col-md-3" style="width: 100px">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-lg-1 col-md-3" style="width: 100px; margin-top: -38px; margin-left: 80px;">
+                            <button class="btn btn-danger">
+                                <a class="text-decoration-none text-white" href="{{ route('admin/products') }}">Cancel</a>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+                <!-- End of Main Content -->
+            </div>
+            <!-- End of Content Wrapper -->
+    
         </div>
-    </div>
+        <!-- End of Page Wrapper -->
+    
+    </body>
+    
+    </html>    
 
     @section('scripts')
         <script>
             ClassicEditor
-                .create( document.querySelector( '#task-textarea1' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+                .create(document.querySelector('#task-textarea1'))
+                .catch(error => {
+                    console.error(error);
+                });
         </script>
     @endsection
 </x-app-layout>

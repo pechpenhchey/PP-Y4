@@ -1,47 +1,98 @@
 <x-app-layout>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-auto sidebar px-0">
-                @include('admin.sidebar')
-            </div>
-            <div class="col-md-8 mx-auto pt-5">
-                <div>
-                    <a class="btn btn-primary my-3 text-white" href="{{ route('admin.users.index') }}">Back</a>
-                </div>
-                <div class="card">
-                    <div class="card-header">Add User</div>
-                    <div class="card-body">
-                        <form action="{{ route('admin.users.store') }}" method="POST">
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    
+    <body id="page-top">
+    
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+    
+            <!-- Sidebar -->
+            @include('admin.sidebar')
+            <!-- End of Sidebar -->
+    
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+    
+                <!-- Main Content -->
+                <div id="content">
+    
+                    <!-- Topbar -->
+                    @include('admin.topbar')
+                    <!-- End of Topbar -->
+    
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- Content Row -->
+                        <div class="col">
+                <div class="py-12">
+                    <div class="container contact-form">
+                        <hr />
+                        @if (session()->has('error'))
+                            <div>
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-
-                            <div class="form-group py-1">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" required>
+                            <span class="fs-5">Add User</span>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+                                        @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="email" name="email" class="form-control" placeholder="Email">
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control" placeholder="Password">
+                                        @error('password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="usertype" id="usertype" class="form-control">
+                                            <option value="">Select Role</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="user">User</option>      
+                                        </select>
+                                        @error('usertype')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="form-group py-1">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" required>
+                            <div class="row d-flex">
+                                <div class="col-lg-1 col-md-3" style="width: 100px">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
                             </div>
-
-                            <div class="form-group py-1">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" required>
-                            </div>
-
-                            <div class="form-group py-3">
-                                <label for="usertype">Role</label>
-                                <select name="usertype" id="usertype" class="form-control" required>
-                                    <option value="admin">Admin</option>
-                                    <option value="user">User</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Add User</button>
                         </form>
+                        <div class="col-lg-1 col-md-3" style="width: 100px; margin-top: -38px; margin-left: 80px;">
+                            <button class="btn btn-danger">
+                                <a class="text-decoration-none text-white" href="{{ route('admin.users.index') }}">Cancel</a>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+                <!-- End of Main Content -->
+            </div>
+            <!-- End of Content Wrapper -->
+    
         </div>
-    </div>
-</x-app-layout>
+        <!-- End of Page Wrapper -->
+    
+    </body>
+    
+    </html>
+    </x-app-layout>
+    

@@ -1,27 +1,71 @@
 <x-app-layout>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-auto sidebar px-0">
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+
+    <body id="page-top">
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Sidebar -->
             @include('admin.sidebar')
-        </div>
-            <div class="col">
-                <div class="py-12">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Create Category</h1>
-                                <form action="{{ route('categories.store') }}" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" name="name" id="name" class="form-control">
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    @include('admin.topbar')
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- Content Row -->
+                        <div class="col">
+                            <div class="py-12">
+                                <div class="container contact-form">
+                                    <hr />
+                                    @if (session()->has('error'))
+                                        <div>
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('categories.store') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <span class="fs-5">Add Category</span>
+                                        <div class="form-group w-50">
+                                            <input type="text" name="name" class="form-control"
+                                                placeholder="Name">
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="row d-flex">
+                                            <div class="col-lg-1 col-md-3" style="width: 100px">
+                                                <button class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="col-lg-1 col-md-3"
+                                        style="width: 100px; margin-top: -38px; margin-left: 80px;">
+                                        <button class="btn btn-danger">
+                                            <a class="text-decoration-none text-white"
+                                                href="{{ route('admin.categories.index') }}">Cancel</a>
+                                        </button>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Create</button>
-                                </form>
+                                </div>
                             </div>
                         </div>
+                        <!-- End of Main Content -->
                     </div>
+                    <!-- End of Content Wrapper -->
+
                 </div>
-            </div>
-        </div>
+                <!-- End of Page Wrapper -->
+    </body>
+
+    </html>
 </x-app-layout>
