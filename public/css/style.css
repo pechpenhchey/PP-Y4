@@ -84,6 +84,23 @@ section {
   color: var(--color-primary);
 }
 
+.button-normal {
+  color: #fff;
+  background: var(--color-primary);
+  padding: 12px 30px;
+  margin-left: 30px;
+  border-radius: 25px;
+  font-size: 14px;
+  transition: 0.3s;
+  border: 1px solid var(--color-primary);
+}
+
+.button-normal:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
 /*--------------------------------------------------------------
 # Breadcrumbs
 --------------------------------------------------------------*/

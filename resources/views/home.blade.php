@@ -23,7 +23,7 @@
                         <li><a href="#contact">Contact</a></li>
                         <div class="cart-container">
                             <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
-                            @if ($totalCount > 0)
+                            @if (isset($totalCount) && $totalCount > 0)
                                 <span class="badge">{{ $totalCount }}</span>
                             @endif
                         </div>
@@ -143,8 +143,9 @@
                                                             <a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#productModal{{ $product->id }}"
                                                                 class="glightbox">
-                                                                <img src="{{ asset('images/' . $product->image) }}"
-                                                                    alt="{{ $product->title }}" class="menu-img">
+                                                                <img src="{{ asset('storage/' . $product->image) }}" 
+                                                                loading="lazy" alt="{{ $product->title }}" class="menu-img">
+                                                                    
                                                             </a>
                                                             <div class="menu-details">
                                                                 <h4 class="menu-title p-3 price">{{ $product->title }}
@@ -164,8 +165,8 @@
                                                                     @csrf
                                                                     <input type="hidden" name="product_id"
                                                                         value="{{ $product->id }}">
-                                                                    <button type="submit" class="btn btn-primary">Add
-                                                                        to cart</button>
+                                                                    <button type="submit" class="button-normal">Order</button>
+                                                                        
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -190,8 +191,8 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <img src="{{ asset('images/' . $product->image) }}"
-                                                                    alt="{{ $product->title }}" class="img-fluid">
+                                                                <img src="{{ asset('storage/' . $product->image) }}" 
+                                                                loading="lazy" alt="{{ $product->title }}" class="img-fluid">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <p class="price">
@@ -208,8 +209,7 @@
                                                         @csrf
                                                         <input type="hidden" name="product_id"
                                                             value="{{ $product->id }}">
-                                                        <button type="submit" class="btn btn-primary">Add
-                                                            to cart</button>
+                                                        <button type="submit" class="button-normal">Order</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -241,8 +241,8 @@
                                                                     <a href="#" data-bs-toggle="modal"
                                                                         data-bs-target="#productModal{{ $category->id }}{{ $product->id }}"
                                                                         class="glightbox">
-                                                                        <img src="{{ asset('images/' . $product->image) }}"
-                                                                            alt="{{ $product->title }}"
+                                                                        <img src="{{ asset('storage/' . $product->image) }}" 
+                                                                            loading="lazy" alt="{{ $product->title }}"
                                                                             class="menu-img">
                                                                     </a>
                                                                     <div class="menu-details">
@@ -266,8 +266,7 @@
                                                                                     name="product_id"
                                                                                     value="{{ $product->id }}">
                                                                                 <button type="submit"
-                                                                                    class="btn btn-primary">Add
-                                                                                    to cart</button>
+                                                                                    class="button-normal">Order</button>
                                                                             </form>
                                                                         </div>
                                                                     </div>
@@ -295,7 +294,8 @@
                                                             <div class="container">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        <img src="{{ asset('images/' . $product->image) }}"
+                                                                        <img src="{{ asset('storage/' . $product->image) }}" 
+                                                                            loading="lazy"
                                                                             alt="{{ $product->title }}"
                                                                             class="img-fluid">
                                                                     </div>
@@ -315,8 +315,7 @@
                                                                 @csrf
                                                                 <input type="hidden" name="product_id"
                                                                     value="{{ $product->id }}">
-                                                                <button type="submit" class="btn btn-primary">Add
-                                                                    to cart</button>
+                                                                <button type="submit" class="button-normal">Order</button>              
                                                             </form>
                                                         </div>
                                                     </div>

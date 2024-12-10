@@ -75,8 +75,13 @@
                                                     @foreach ($orders as $order)
                                                         <tr onclick="window.location.href='{{ route('orders.show', $order->id) }}'" style="cursor: pointer;">
                                                             <td>{{ $order->order_number }}</td>
-                                                            <td><img src="{{ asset('images/' . $order->product->image) }}"
-                                                                    alt="" style="width: 120px; height: 80px;">
+                                                            <td><img 
+                                                                src="{{ asset('storage/' . $order->product->image) }}" 
+                                                                class="avatar" 
+                                                                alt="" style="width: 120px; height: 80px;" 
+                                                                loading="lazy" 
+                                                                >
+                                                                    
                                                             </td>
                                                             <td>{{ $order->special_request }}</td>
                                                             <td>{{ $order->product->title }}</td>

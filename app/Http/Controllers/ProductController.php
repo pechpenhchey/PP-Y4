@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Cart;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -42,7 +41,7 @@ class ProductController extends Controller
             $query->where('category_id', '=', $request->input('category_id'));
         }
 
-        $products = $query->paginate(12);
+        $products = $query->paginate(8);
         $categories = Category::all();
 
         return view('dashboard', ['products' => $products, 'categories' => $categories]);
@@ -67,19 +66,18 @@ class ProductController extends Controller
         $validation['price'] = floatval($validation['price']);
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            $validation['image'] = $imageName;
+            // Store the image in the 'public/images' directory and save its path
+            $path = $request->file('image')->store('images', 'public');
+            $validation['image'] = $path; // Save the storage path
         }
 
-        $product = new Product();
-        $product->title = $validation['title'];
-        $product->category_id = $validation['category_id'];
-        $product->price = $validation['price'];
-        $product->description = $validation['description'];
-        $product->image = $validation['image'];
-        $product->save();
+        Product::create([
+            'title' => $validation['title'],
+            'category_id' => $validation['category_id'],
+            'price' => $validation['price'],
+            'description' => $validation['description'],
+            'image' => $validation['image'],
+        ]);
 
         session()->flash('success', 'Product Added Successfully');
         return redirect()->route('admin/products');
@@ -95,15 +93,16 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::findOrFail($id);
+
+        // Delete the image file from storage
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
         $product->delete();
 
-        if ($product) {
-            session()->flash('success', 'Product Deleted Successfully');
-            return redirect()->route('admin/products');
-        } else {
-            session()->flash('error', 'Error !!');
-            return redirect()->route('admin/products');
-        }
+        session()->flash('success', 'Product Deleted Successfully');
+        return redirect()->route('admin/products');
     }
 
     public function update(Request $request, $id)
@@ -121,29 +120,25 @@ class ProductController extends Controller
         $validation['price'] = floatval($validation['price']);
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            $validation['image'] = $imageName;
+            // Delete the old image from storage
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            // Store the new image and save its path
+            $path = $request->file('image')->store('images', 'public');
+            $validation['image'] = $path;
         }
 
-        $product->title = $validation['title'];
-        $product->category_id = $validation['category_id'];
-        $product->price = $validation['price'];
-        $product->description = $validation['description'];
+        $product->update([
+            'title' => $validation['title'],
+            'category_id' => $validation['category_id'],
+            'price' => $validation['price'],
+            'description' => $validation['description'],
+            'image' => $validation['image'] ?? $product->image,
+        ]);
 
-        if (isset($validation['image'])) {
-            $product->image = $validation['image'];
-        }
-
-        $product->save();
-
-        if ($product) {
-            session()->flash('success', 'Product Updated Successfully');
-        } else {
-            session()->flash('error', 'Some problem occurred');
-        }
-
+        session()->flash('success', 'Product Updated Successfully');
         return redirect(route('admin/products'));
     }
 }

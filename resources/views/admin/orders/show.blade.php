@@ -57,7 +57,8 @@
                                                                             </p>
                                                                         </div>
                                                                         <div>
-                                                                            <h6 class="mb-0"> <button
+                                                                            <h6 class="mb-0"> 
+                                                                                <button
                                                                                     class="btn btn-primary">
                                                                                     <a class="text-decoration-none text-white"
                                                                                         href="{{ route('orders.index') }}">Back</a>
@@ -86,8 +87,10 @@
                                                                         </div>
                                                                         <div>
                                                                             <img class="align-self-center img-fluid"
-                                                                                src={{ asset('images/' . $order->product->image) }}
-                                                                                width="250">
+                                                                                src="{{ asset('storage/' . $order->product->image) }}" 
+                                                                                width="250"
+                                                                                loading="lazy"
+                                                                                >
                                                                         </div>
                                                                     </div>
                                                                 </div>

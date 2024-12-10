@@ -16,16 +16,14 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
                 autocomplete="current-password" />
-
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4 d-flex justify-content-between align-items-center">
-            <div class="form-check">
+        <!-- Remember Me and Forgot Password in the Same Row -->
+        <div class="row block mt-4 d-flex justify-content-between align-items-center">
+            <div class="col-md-6 form-check">
                 <label class="form-check-label" for="remember_me">
                     <input id="remember_me" type="checkbox"
                         class="form-check-input rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
@@ -33,31 +31,39 @@
                     <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
-            <div>
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    href="{{ route('register') }}">
-                    {{ __('Sign up?') }}
-                </a>
-            </div>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
+            <div class="col-md-6 d-flex justify-content-end">
+                @if(Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-
+                @endif
+            </div>          
         </div>
-            <div class="text-center py-4 my-3">
-                <a class="btn btn-primary" href="{{ route('google-auth') }}"
-                 style="width: 400px;"> <i class="fa-brands fa-google px-2"></i>
-                    Google</a>
-            </div>
+
+        <!-- Login Button -->
+        <div class="mt-4">
+            <button type="submit" class="btn w-full text-center" 
+                style="background-color: #ce1212; color: white; height: 40px; border-radius: 6px;">
+                {{ __('Log in') }}
+            </button>                        
+        </div>   
+        
+        <!-- Register Link -->
+        <div class="text-center pt-3">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                href="{{ route('register') }}">
+                Don't have an account? 
+                {{ __('Sign up') }}
+            </a>
+        </div>
+
+        <!-- Google Button -->
+        <div class="text-center my-3">
+            <a class="btn btn-primary bg-blue-500 w-full text-gray-700 py-3" href="{{ route('google-auth') }}" style="max-width: 400px;">
+                <i class="fa-brands fa-google"></i> Google
+            </a>
+        </div>
+        
     </form>
 </x-guest-layout>
