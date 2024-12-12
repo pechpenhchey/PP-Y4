@@ -57,11 +57,25 @@
                 {{ __('Sign up') }}
             </a>
         </div>
+        <hr class="mt-3" style="border-color: #ce1212; border-width: 1px;">
+
+        <div class="mt-2 text-center text-sm text-gray-600 hover:text-gray-900 rounded-md">
+            <p>Sign in with </p>
+        </div>
 
         <!-- Google Button -->
-        <div class="text-center my-3">
-            <a class="btn btn-primary bg-blue-500 w-full text-gray-700 py-3" href="{{ route('google-auth') }}" style="max-width: 400px;">
-                <i class="fa-brands fa-google"></i> Google
+        <div class="text-center mt-3">
+            <a class="btn w-full text-gray-700 py-3 mx-2" 
+                href="{{ route('google-auth') }}" style="max-width: 400px;">
+                    <i class="fa-brands fa-google"></i> Google
+                </a>
+                <a class="btn w-full text-gray-700 py-3 mx-2" 
+                href="" style="max-width: 400px;">
+                    <i class="fa-brands fa-twitter"></i> Twitter
+                </a>
+                <a class="btn w-full text-gray-700 py-3 mx-2" 
+                href="" style="max-width: 400px;">
+                    <i class="fa-brands fa-facebook"></i> Facebook
             </a>
         </div>
         

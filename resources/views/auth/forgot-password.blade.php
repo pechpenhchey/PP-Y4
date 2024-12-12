@@ -16,10 +16,19 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <x-primary-button 
+                    style="background-color: white; color: black; height: 40px; border-radius: 6px;" 
+                    onclick="window.location='{{ route('login') }}'">
+                    {{ __('Back') }}
+                </x-primary-button>
+            </div>            
+            <div class="col-md-6 flex justify-end">
+                <x-primary-button style="background-color: #ce1212; color: white; height: 40px; border-radius: 6px;">
+                    {{ __('Reset password') }}
+                </x-primary-button>
+            </div>
         </div>
     </form>
 </x-guest-layout>
