@@ -84,7 +84,8 @@
                                 <tbody>
                                     @foreach ($cartItems as $item)
                                         <tr>
-                                            <td><img src="{{ asset('images/' . $item->product->image) }}" alt="" class="cart_item_image"></td>
+                                            <td><img src="{{ asset('storage/' . $item->product->image) }}" 
+                                                loading="lazy" alt="" class="cart_item_image"></td>
                                             <td>{{ $item->product->title }}</td>
                                             <td>
                                                 <form id="updateForm-{{ $item->id }}" action="{{ route('cart.update', $item->id) }}" method="POST">

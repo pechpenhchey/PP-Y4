@@ -38,24 +38,39 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
-
-        <div class="flex items-center justify-end mt-4">
+        <div class="mt-2">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
+        </div>
 
-            <x-primary-button class="ms-4">
+        <div class="mt-3">
+            <button type="submit" class="btn w-full text-center" 
+                style="background-color: #ce1212; color: white; height: 40px; border-radius: 6px;">
                 {{ __('Register') }}
-            </x-primary-button>
+            </button> 
         </div>
-        <div class="text-center">
-            <p class="py-1">Or sign up with</p>
-            <hr>
+
+        <hr class="mt-3" style="border-color: #ce1212; border-width: 1px;">
+
+        <div class="mt-2 text-center text-sm text-gray-600 hover:text-gray-900 rounded-md">
+            <p>Sign in with </p>
         </div>
-        <div class="text-center py-4 my-3">
-            <a class="btn btn-primary" href="{{ route('google-auth') }}"
-             style="width: 400px;"> <i class="fa-brands fa-google px-2"></i>
-                Google</a>
+
+        <!-- Google Button -->
+        <div class="text-center mt-3">
+            <a class="btn w-full text-gray-700 py-3 mx-2" 
+                href="{{ route('google-auth') }}" style="max-width: 400px;">
+                    <i class="fa-brands fa-google"></i> Google
+                </a>
+                <a class="btn w-full text-gray-700 py-3 mx-2" 
+                href="" style="max-width: 400px;">
+                    <i class="fa-brands fa-twitter"></i> Twitter
+                </a>
+                <a class="btn w-full text-gray-700 py-3 mx-2" 
+                href="" style="max-width: 400px;">
+                    <i class="fa-brands fa-facebook"></i> Facebook
+            </a>
         </div>
     </form>
 </x-guest-layout>

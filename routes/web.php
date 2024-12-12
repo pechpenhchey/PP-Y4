@@ -13,7 +13,11 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\CartCountController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
+});
+
+Route::get('/home', function () {
+    return view('home');
 });
 
 Route::middleware('auth')->group(function () {

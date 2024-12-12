@@ -71,10 +71,14 @@
                                                         <tr>
                                                             <td>{{ $product->id }}</td>
                                                             <td>
-                                                                <a href="#"><img
-                                                                        src="{{ asset('images/' . $product->image) }}"
-                                                                        class="avatar" alt="{{ $product->title }}"
-                                                                        style="width: 120px; height: 80px;"></a>
+                                                                <a href="#">
+                                                                    <img 
+                                                                        src="{{ asset('storage/' . $product->image) }}" 
+                                                                        class="avatar" 
+                                                                        alt="{{ $product->title }}" 
+                                                                        loading="lazy" 
+                                                                        >
+                                                                </a>
                                                             </td>
                                                             <td>{{ $product->title }}</td>
                                                             <td>{{ $product->category->name ?? 'No Category' }}</td>

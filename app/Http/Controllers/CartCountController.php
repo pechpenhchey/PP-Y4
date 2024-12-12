@@ -18,7 +18,6 @@ class CartCountController extends Controller
         
         $query = Product::query();
     
-        // Filtering products based on request parameters
         if ($request->has('title')) {
             $query->where('title', 'like', '%' . $request->input('title') . '%');
         }
@@ -31,12 +30,11 @@ class CartCountController extends Controller
             $query->where('category_id', '=', $request->input('category_id'));
         }
     
-        $products = $query->paginate(12); // Paginate the results
+        $products = $query->paginate(12);
     
         $categories = Category::all();
     
-        // Pass data to the view
-        return view('dashboard', [
+        return view('home', [
             'products' => $products,
             'categories' => $categories,
             'totalCount' => $totalCount,
