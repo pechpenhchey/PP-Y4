@@ -9,7 +9,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <title>{{ config('app.name', 'HFood') }}</title>
+    <title>{{ config('app.name', 'DishDelight') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

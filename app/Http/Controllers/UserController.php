@@ -64,7 +64,7 @@ class UserController extends Controller
             'email',
             Rule::unique('users')->ignore($user->id),
         ],
-        'password' => 'nullable|min:6',
+        'password' => 'nullable|min:8',
         'usertype' => 'required|in:admin,user',
     ]);
 

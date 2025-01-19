@@ -1,29 +1,8 @@
 <x-app-layout>
-    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-    
-    <body id="page-top">
-    
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-    
-            <!-- Sidebar -->
-            @include('admin.sidebar')
-            <!-- End of Sidebar -->
-    
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-    
-                <!-- Main Content -->
-                <div id="content">
-    
-                    <!-- Topbar -->
-                    @include('admin.topbar')
-                    <!-- End of Topbar -->
-    
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
-                        <!-- Content Row -->
-                        <div class="col">
+    <x-bar-layout>
+        @section('content')
+            <!-- Content Row -->
+            <div class="col">
                 <div class="py-12">
                     <div class="container contact-form">
                         <hr />
@@ -84,17 +63,8 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
-                <!-- End of Main Content -->
-            </div>
-            <!-- End of Content Wrapper -->
-    
-        </div>
-        <!-- End of Page Wrapper -->
-    
-    </body>
-    
-    </html>
-    </x-app-layout>
-    
+        @endsection
+    </x-bar-layout>
+</x-app-layout>

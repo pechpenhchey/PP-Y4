@@ -18,7 +18,7 @@ class GoogleAuthController extends Controller
     {
         try {
             $google_user = Socialite::driver('google')->user();
-            $user = User::where('google_id', $google_user->getId())->first(); // Check if the user exists by Google ID
+            $user = User::where('google_id', $google_user->getId())->first();
 
             if (!$user) {
                 // Check if the user exists by email

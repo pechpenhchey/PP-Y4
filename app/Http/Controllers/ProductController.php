@@ -60,15 +60,14 @@ class ProductController extends Controller
             'category_id' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $validation['price'] = floatval($validation['price']);
 
         if ($request->hasFile('image')) {
-            // Store the image in the 'public/images' directory and save its path
             $path = $request->file('image')->store('images', 'public');
-            $validation['image'] = $path; // Save the storage path
+            $validation['image'] = $path;
         }
 
         Product::create([
@@ -76,12 +75,13 @@ class ProductController extends Controller
             'category_id' => $validation['category_id'],
             'price' => $validation['price'],
             'description' => $validation['description'],
-            'image' => $validation['image'],
+            'image' => $validation['image'] ?? null,
         ]);
 
         session()->flash('success', 'Product Added Successfully');
         return redirect()->route('admin/products');
     }
+
 
     public function edit($id)
     {
@@ -120,12 +120,10 @@ class ProductController extends Controller
         $validation['price'] = floatval($validation['price']);
 
         if ($request->hasFile('image')) {
-            // Delete the old image from storage
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }
 
-            // Store the new image and save its path
             $path = $request->file('image')->store('images', 'public');
             $validation['image'] = $path;
         }
@@ -141,4 +139,5 @@ class ProductController extends Controller
         session()->flash('success', 'Product Updated Successfully');
         return redirect(route('admin/products'));
     }
+
 }

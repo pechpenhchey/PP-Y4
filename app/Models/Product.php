@@ -18,6 +18,15 @@ class Product extends Model
         'image',
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($product) {
+            if ($product->isForceDeleting()) {
+                \App\Models\Cart::where('product_id', $product->id)->delete();
+            }
+        });        
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

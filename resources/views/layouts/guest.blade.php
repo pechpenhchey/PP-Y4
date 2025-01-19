@@ -24,7 +24,7 @@
             <div>
                 <a href="#" class="d-flex align-items-center me-auto me-lg-0 f">
                     <h1 class="font-bold" style="font-size: 52px;">
-                        <img src="{{ asset('images/hfood-logo.webp') }}" alt="Logo" class="rounded-full" style="width: 120px; height: 120px;">
+                        <img src="{{ asset('images/logonobg.png') }}" alt="Logo" class="rounded-full" style="width: 120px; height: 120px;">
                     </h1>
                 </a>
             </div>

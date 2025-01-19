@@ -35,14 +35,23 @@ class CartController extends Controller
     public function showCart()
     {
         $userId = Auth::id();
+            $cartItems = Cart::where('user_id', $userId)->with('product')->get();
+    
+        foreach ($cartItems as $cartItem) {
+            if (!$cartItem->product || $cartItem->product->trashed()) {
+                $cartItem->delete();
+            }
+        }
+    
         $cartItems = Cart::where('user_id', $userId)->with('product')->get();
+    
         $totalCount = $cartItems->count();
         $orderTotal = $cartItems->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
-
+    
         return view('cart', compact('cartItems', 'totalCount', 'orderTotal'));
-    }
+    }    
 
     public function deleteCartItem($cartId)
     {
@@ -56,6 +65,7 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Food removed from cart successfully!');
     }
+    
     public function updateCartItem(Request $request, Cart $cartItem)
     {
         $this->validate($request, [
