@@ -1,22 +1,36 @@
+<link href="{{ asset('css/cart.css') }}" rel="stylesheet">
+
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between px-5">
-        <a href="/home" class="logo d-flex align-items-center me-auto me-lg-0">
-            <h1>HFood<span>.</span></h1>
+        <a href="/home" class="d-flex align-items-center">
+            <img src="{{ asset('images/logonobg.png') }}" alt="Logo" class="rounded-circle" style="width: 100px; height: 80px;">
         </a>
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/home#hero">Home</a></li>
+                <li><a href="/home#menu">Menu</a></li>
+                <li><a href="/home#about">About</a></li>
+                <li><a href="/home#contact">Contact</a></li>
+
+                @guest 
+                <!-- This part is visible only to guests --> 
+                <div> 
+                    <h2>Please 
+                        <a href="{{ route('login') }}">login</a>
+                    </h2> 
+                </div> 
+                @endguest
+                
+                @auth
                 <div class="cart-container ms-3">
                     <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
                     @if (isset($totalCount) && $totalCount > 0)
                         <span class="badge">{{ $totalCount }}</span>
                     @endif
                 </div>
+                
 
                 <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -52,9 +66,8 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
-                </li>
-            </ul>
-            </li>
+                    </li>
+                @endauth
             </ul>
 
         </nav><!-- .navbar -->

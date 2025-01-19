@@ -1,63 +1,7 @@
 <x-app-layout>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-        <div class="container d-flex align-items-center justify-content-between">
-            <a href="/home" class="logo d-flex align-items-center me-auto me-lg-0">
-                <h1>HFood<span>.</span></h1>
-            </a>
-
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/home/#about">About</a></li>
-                    <li><a href="/home/#menu">Menu</a></li>
-                    <li><a href="/home/#contact">Contact</a></li>
-                    <div class="cart-container">
-                        <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
-                        @if ($totalCount > 0)
-                            <span class="badge">{{ $totalCount }}</span>
-                        @endif
-                    </div>
-                    <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                        <ul>
-                            <li><x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link></li>
-                            <li>
-                                @auth
-                                    @if (auth()->user()->isUser())
-                                        <x-dropdown-link :href="route('order.history')" :active="request()->routeIs('order.history')">
-                                            {{ __('Order History') }}
-                                        </x-dropdown-link>
-                                    @endif
-                                @endauth
-                            </li>
-                            <li>
-                                @auth
-                                    @if (auth()->user()->isAdmin())
-                                        <x-dropdown-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                                            {{ __('Dashboard') }}
-                                        </x-dropdown-link>
-                                    @endif
-                                @endauth
-                            </li>
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        </ul>
-                    </li>
-                </ul>
-            </nav><!-- .navbar -->
-            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-            <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-        </div>
-    </header><!-- End Header -->
+    @include('homeComponents.header')
 
     <!-- Add to cart -->
     <div class="cart_section" style="padding-top: 130px">
@@ -100,11 +44,11 @@
                                                 <form action="{{ route('cart.delete', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a href="javascript:void(0);" class="delete" title="Delete" data-toggle="tooltip" onclick="confirmDelete('{{ route('cart.delete', $item->id) }}')">
-                                                        <i class="material-icons">&#xE5C9;</i>
-                                                    </a>
+                                                    <button type="submit" class="delete" title="Delete" data-toggle="tooltip">
+                                                        <i class="fa-solid fa-trash fa-xl" style="color: #ce1212;"></i>
+                                                    </button>
                                                 </form>
-                                            </td>
+                                            </td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -156,16 +100,13 @@
         </div>
     </div>
 
+    @include('homeComponents.footer')
+
     <script>
         function submitForm(itemId) {
             document.getElementById('updateForm-' + itemId).submit();
         }
 
-        function confirmDelete(url) {
-            if (confirm('Are you sure you want to remove this item from the cart?')) {
-                window.location.href = url;
-            }
-        }
     </script>
 
 </x-app-layout>

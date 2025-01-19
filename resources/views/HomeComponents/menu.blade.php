@@ -61,6 +61,7 @@
                                                     <p class="price">
                                                         ${{ $product->price }}
                                                     </p>
+                                                    @auth
                                                     <form action="{{ route('cart.add') }}"
                                                         method="POST">
                                                         @csrf
@@ -69,6 +70,7 @@
                                                         <button type="submit" class="button-normal">Order</button>
                                                             
                                                     </form>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>
@@ -105,6 +107,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @auth
                                     <div class="modal-footer">
                                         <form action="{{ route('cart.add') }}" method="POST">
                                             @csrf
@@ -113,6 +116,7 @@
                                             <button type="submit" class="button-normal">Order</button>
                                         </form>
                                     </div>
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -159,6 +163,7 @@
                                                             <p class="price">
                                                                 ${{ $product->price }}
                                                             </p>
+                                                            @auth
                                                             <div>
                                                                 <form action="{{ route('cart.add') }}"
                                                                     method="POST">
@@ -169,7 +174,7 @@
                                                                     <button type="submit"
                                                                         class="button-normal">Order</button>
                                                                 </form>
-                                                            </div>
+                                                            </div>@endauth
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,6 +216,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @auth
                                             <div class="modal-footer">
                                                 <form action="{{ route('cart.add') }}" method="POST">
                                                     @csrf
@@ -218,7 +224,7 @@
                                                         value="{{ $product->id }}">
                                                     <button type="submit" class="button-normal">Order</button>              
                                                 </form>
-                                            </div>
+                                            </div>@endauth
                                         </div>
                                     </div>
                                 </div>

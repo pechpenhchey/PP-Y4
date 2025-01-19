@@ -1,29 +1,8 @@
 <x-app-layout>
-    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-    
-    <body id="page-top">
-    
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-    
-            <!-- Sidebar -->
-            @include('admin.sidebar')
-            <!-- End of Sidebar -->
-    
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-    
-                <!-- Main Content -->
-                <div id="content">
-    
-                    <!-- Topbar -->
-                    @include('admin.topbar')
-                    <!-- End of Topbar -->
-    
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
-                        <!-- Content Row -->
-                        <div class="col">
+    <x-bar-layout>
+        @section('content')
+            <!-- Content Row -->
+            <div class="col">
                 <div class="py-12">
                     <div class="container contact-form">
                         <hr />
@@ -61,12 +40,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <input type="file" name="image" class="form-control" accept="image/*">
-                                        @error('image')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                                    @include('components.image-upload')
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -90,18 +64,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-                <!-- End of Main Content -->
-            </div>
-            <!-- End of Content Wrapper -->
-    
-        </div>
-        <!-- End of Page Wrapper -->
-    
-    </body>
-    
-    </html>
-
+            </div>    
+            
     @section('scripts')
         <script>
             ClassicEditor
@@ -111,4 +75,7 @@
                 } );
         </script>
     @endsection
+        
+        @endsection
+    </x-bar-layout>
 </x-app-layout>

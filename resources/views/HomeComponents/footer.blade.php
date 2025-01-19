@@ -8,7 +8,7 @@
                 <div>
                     <h4>Address</h4>
                     <p>
-                        ITE Y3<br>
+                        ITE Y4<br>
                         RUPP<br>
                     </p>
                 </div>
@@ -31,7 +31,6 @@
                 <div class="social-links d-flex">
                     <a href="#" class="twitter"><i class="fa-brands fa-facebook"></i></a>
                     <a href="#" class="facebook"><i class="fa-brands fa-x"></i></a>
-                    <a href="#" class="instagram"><i class="fa-brands fa-telegram"></i></a>
                     <a href="#" class="linkedin"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
@@ -41,7 +40,7 @@
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong><span>HFood</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>DishDelight</span></strong>. All Rights Reserved
         </div>
     </div>
 

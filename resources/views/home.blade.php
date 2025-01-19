@@ -3,22 +3,21 @@
 
     <head>
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
-
+        
     </head>
 
     <body>
         <div>
-            @include('HomeComponents.header')
-            @include('HomeComponents.hero')
+            @include('homeComponents.header')
+            @include('homeComponents.hero')
             
             <main class="container" id="main">
-                @include('HomeComponents.menu')
-                @include('HomeComponents.about')
-                @include('HomeComponents.contact')
+                @include('homeComponents.menu')
+                @include('homeComponents.about')
+                @include('homeComponents.contact')
             </main>
     
-            @include('HomeComponents.footer')
+            @include('homeComponents.footer')
         </div>
 
         <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
