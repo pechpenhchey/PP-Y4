@@ -18,6 +18,8 @@ class CartController extends Controller
 
         $cart = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
 
+        $isNewItem = !$cart;
+
         if ($cart) {
             $cart->quantity += 1;
             $cart->save();
@@ -29,27 +31,35 @@ class CartController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Food added to cart successfully!');
+        // Count unique items for the user
+        $totalCount = Cart::where('user_id', $user_id)->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Food added to cart successfully!',
+            'isNewItem' => $isNewItem,
+            'totalCount' => $totalCount
+        ]);
     }
 
     public function showCart()
     {
         $userId = Auth::id();
-            $cartItems = Cart::where('user_id', $userId)->with('product')->get();
-    
+        $cartItems = Cart::where('user_id', $userId)->with('product')->get();
+
         foreach ($cartItems as $cartItem) {
             if (!$cartItem->product || $cartItem->product->trashed()) {
                 $cartItem->delete();
             }
         }
-    
+
         $cartItems = Cart::where('user_id', $userId)->with('product')->get();
-    
+
         $totalCount = $cartItems->count();
         $orderTotal = $cartItems->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
-    
+
         return view('cart', compact('cartItems', 'totalCount', 'orderTotal'));
     }    
 

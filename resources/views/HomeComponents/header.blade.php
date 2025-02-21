@@ -26,14 +26,16 @@
                 @auth
                 <div class="cart-container ms-3">
                     <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
-                    @if (isset($totalCount) && $totalCount > 0)
-                        <span class="badge">{{ $totalCount }}</span>
-                    @endif
+                    <span class="badge" id="cart-count">
+                        @if (isset($totalCount) && $totalCount > 0)
+                            {{ $totalCount }}
+                        @else
+                            0
+                        @endif
+                    </span>
                 </div>
-                
 
-                <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i
-                            class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <li class="dropdown"><a href=""><span>{{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
@@ -59,7 +61,6 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                         this.closest('form').submit();">
@@ -69,10 +70,8 @@
                     </li>
                 @endauth
             </ul>
-
         </nav><!-- .navbar -->
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
     </div>
 </header><!-- End Header -->

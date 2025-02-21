@@ -33,7 +33,7 @@ class CartCountController extends Controller
             $query->where('category_id', '=', $request->input('category_id'));
         }
 
-        $products = $query->paginate(12);
+        $products = $query->paginate(8);
         $categories = Category::all();
 
         return view('home', [
