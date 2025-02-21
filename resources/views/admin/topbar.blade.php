@@ -32,16 +32,15 @@
             </div>
         </li>
 
-        {{-- <!-- Admin Notifications Dropdown -->
+        <!-- Admin Notifications Dropdown -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
-                @if (auth()->user()->unreadNotifications->count())
-                    <span
-                        class="badge badge-danger badge-counter">{{ auth()->user()->unreadNotifications->count() }}</span>
-                @endif
+               
+                    <span class="badge badge-danger badge-counter"></span>
+               
             </a>
             <!-- Dropdown - Admin Notifications -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -49,23 +48,23 @@
                 <h6 class="dropdown-header">
                     New Orders
                 </h6>
-                @foreach (auth()->user()->unreadNotifications as $notification)
+
                     <a class="dropdown-item d-flex align-items-center"
-                        href="{{ route('orders.show', $notification->data['order_id']) }}">
+                        href="{{ route('orders.show', ['order_id']) }}">
                         <div class="dropdown-list-image mr-3">
                             <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                             <div class="status-indicator bg-success"></div>
                         </div>
                         <div class="font-weight-bold">
-                            <div class="text-truncate">{{ $notification->data['message'] }}</div>
-                            <div class="small text-gray-500">{{ $notification->created_at->diffForHumans() }}</div>
+                            <div class="text-truncate"> message </div>
+                            <div class="small text-gray-500"> aasd</div>
                         </div>
                     </a>
-                @endforeach
+
                 <a class="dropdown-item text-center small text-gray-500" href="{{ route('admin.notifications') }}">Read
                     More Messages</a>
             </div>
-        </li> --}}
+        </li>
 
 
         <div class="topbar-divider d-none d-sm-block"></div>
