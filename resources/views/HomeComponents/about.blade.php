@@ -19,12 +19,7 @@
             <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
                 <div class="content ps-0 ps-lg-5">
                     <p class="fst-italic">
-                        Welcome to our platform, your ultimate destination for discovering and savoring
-                        wholesome, delicious food! Dive into a world of vibrant recipes, insightful
-                        nutrition tips, and a seamless ordering experience, all designed to nourish your
-                        body and delight your taste buds. Whether you're a culinary enthusiast or just
-                        starting your healthy eating journey, we're here to inspire and guide you every step
-                        of the way. Explore, cook, and enjoy the goodness of healthy living with us!
+                        Welcome to our platform – your go-to hub for exploring a world of mouthwatering flavors and effortless ordering! From comfort food classics to trending favorites, we bring you a diverse menu that satisfies every craving. Whether you're grabbing a quick bite or planning a feast, we make it easy to browse, choose, and enjoy. Dive in, discover new tastes, and let every meal be a delicious experience!
                     </p>
                     <div class="position-relative mt-4">
                         <img src="https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg"

@@ -3,8 +3,8 @@
     <div class="container">
         <div class="row justify-content-between gy-5 px-4">
             <div class="col-lg-5 col-md-12 col-sm-12 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-                <p data-aos="fade-up" data-aos-delay="100">Our website helps users find and enjoy healthy food
+                <h2 data-aos="fade-up">Enjoy Your <br>Delicious Food</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Our website helps users find and enjoy delicious food
                     by providing information, recipes, and an ordering system.</p>
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                     <a href="#menu" class="btn-book-a-table">Explore food</a>
@@ -23,7 +23,6 @@
                     <div class="carousel-inner" style="width: 100%; height: 100%;">
                         @foreach ($latestFoods as $index => $food)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" style="width: 100%; height: 100%;">
-                                <!-- Make the image clickable to open the modal -->
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#carouselProductModal{{ $food->id }}">
                                     <img src="{{ asset('storage/' . $food->image) }}" class="d-block" alt="{{ $food->title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px; transition: opacity 0.8s ease-in-out; cursor: pointer;">
                                 </a>
@@ -51,8 +50,10 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-                <!-- New Foods text -->
-                <p class="text-center mt-2" data-aos="fade-up" data-aos-delay="400" style="font-size: 1.2rem; font-weight: 600; color: #333; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);">New</p>
+                <!-- text -->
+                <p class="text-center mt-2" data-aos="fade-up" data-aos-delay="400" style="font-size: 1.2rem; font-weight: 600; color: #CE1A1A; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);">
+                    <span class="text-background"><i class="fa-solid fa-exclamation fa-beat"></i>&nbsp; New Added</span>
+                  </p>
             </div>
         </div>
 
@@ -65,7 +66,7 @@
                             <h5 class="modal-title price" id="carouselProductModalLabel{{ $food->id }}">{{ $food->title }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="background-image: url('https://t4.ftcdn.net/jpg/04/80/74/93/360_F_480749365_xVdiG03NscliF6PYEstNQyoS1GRNJXZV.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -73,7 +74,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <p class="price">${{ $food->price }}</p>
-                                        <div class="fs-5 my-1 text-warning">Information:</div>
+                                        <div class="fs-5 text-warning">Information:</div>
                                         <p>{!! $food->description !!}</p>
                                     </div>
                                 </div>

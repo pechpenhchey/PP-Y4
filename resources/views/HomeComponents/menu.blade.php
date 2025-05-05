@@ -2,190 +2,60 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="{{ asset('js/cart.js') }}"></script>
 
-<!-- Menu Section (Updated) -->
+<!-- Menu Section -->
 <section id="menu" class="menu">
     <div class="container" data-aos="fade-up">
         <div class="section-header">
             <h2>Our Menu</h2>
-            <p>Check Our <span>Healthy Menu</span></p>
+            <p>Check Our <span>Delicious Menu</span></p>
         </div>
 
+        <!-- Category Tabs -->
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#menu-all">
-                    <h4 style="color: green; cursor: pointer; font-size: large;">All</h4>
+                    <h4 class="text-success pointer">All</h4>
                 </a>
             </li>
             @foreach ($categories as $category)
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-{{ $category->id }}">
-                        <h4 style="color: orangered; font-size: large; cursor: pointer;">{{ $category->name }}</h4>
+                        <h4 class="text-danger pointer">{{ $category->name }}</h4>
                     </a>
                 </li>
             @endforeach
         </ul>
 
-        <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+        <!-- Product Tabs Content -->
+        <div class="pt-4 tab-content" data-aos="fade-up" data-aos-delay="300">
+            <!-- All Products -->
             <div class="tab-pane fade active show" id="menu-all">
-                <div class="row">
+                <div class="row gy-4">
                     @foreach ($products as $product)
-                        <div class="col-lg-3 col-md-6">
-                            <section id="menu" class="menu">
-                                <div data-aos="fade-up">
-                                    <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="row gy-5 justify-content-center">
-                                            <div class="col-lg-12 menu-item">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#productModal{{ $product->id }}" class="glightbox">
-                                                    <img src="{{ asset('storage/' . $product->image) }}" loading="lazy" alt="{{ $product->title }}" class="menu-img">
-                                                </a>
-                                                <div class="menu-details">
-                                                    <h4 class="menu-title p-3 price">{{ $product->title }}</h4>
-                                                    <h5 class="menu-category ms-3 mb-3" style="color: green;">
-                                                        {{ $product->category->name ?? 'No Category' }}
-                                                    </h5>
-                                                </div>
-                                                <div class="menu-footer d-flex justify-content-between align-items-center">
-                                                    <p class="price">${{ $product->price }}</p>
-                                                    @auth
-                                                    <form class="order-form" data-product-id="{{ $product->id }}">
-                                                        @csrf
-                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                        <button type="submit" class="button-normal">Order</button>
-                                                    </form>
-                                                    @endauth
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-
-                        <!-- Food Modal -->
-                        <div class="modal fade product-modal" id="productModal{{ $product->id }}" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title price" id="productModalLabel">{{ $product->title }}</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <img src="{{ asset('storage/' . $product->image) }}" loading="lazy" alt="{{ $product->title }}" class="img-fluid">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p class="price">${{ $product->price }}</p>
-                                                    <div class="fs-5 my-1 text-warning">Information:</div>
-                                                    <p>{!! $product->description !!}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @auth
-                                    <div class="modal-footer">
-                                        <form class="order-form" data-product-id="{{ $product->id }}">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <button type="submit" class="button-normal">Order</button>
-                                        </form>
-                                    </div>
-                                    @endauth
-                                </div>
-                            </div>
-                        </div>
+                        @include('partials.menu-card', ['product' => $product])
                     @endforeach
                 </div>
             </div>
 
+            <!-- Category Products -->
             @foreach ($categories as $category)
                 <div class="tab-pane fade" id="menu-{{ $category->id }}">
-                    <div class="row">
-                        @if ($category->products->isEmpty())
+                    <div class="row gy-4">
+                        @forelse ($category->products as $product)
+                            @include('partials.menu-card', ['product' => $product, 'categoryPrefix' => $category->id])
+                        @empty
                             <div class="col-md-12 pt-5 d-flex justify-content-center">
                                 <img class="img-fluid" style="max-width: 500px; height: 300px;" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/no-item-found-4372183-3626865.png?f=webp" alt="NoFound">
                             </div>
-                        @else
-                            @foreach ($category->products as $product)
-                                <div class="col-lg-3 col-md-6 mb-4">
-                                    <section id="menu" class="menu">
-                                        <div data-aos="fade-up">
-                                            <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-                                                <div class="row gy-5 justify-content-center">
-                                                    <div class="col-lg-12 menu-item">
-                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#productModal{{ $category->id }}{{ $product->id }}" class="glightbox">
-                                                            <img src="{{ asset('storage/' . $product->image) }}" loading="lazy" alt="{{ $product->title }}" class="menu-img">
-                                                        </a>
-                                                        <div class="menu-details">
-                                                            <h4 class="menu-title p-3 price">{{ $product->title }}</h4>
-                                                            <h5 class="menu-category ms-3 mb-3" style="color: green;">
-                                                                {{ $product->category->name ?? 'No Category' }}
-                                                            </h5>
-                                                        </div>
-                                                        <div class="menu-footer d-flex justify-content-between align-items-center">
-                                                            <p class="price">${{ $product->price }}</p>
-                                                            @auth
-                                                            <form class="order-form" data-product-id="{{ $product->id }}">
-                                                                @csrf
-                                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                                <button type="submit" class="button-normal">Order</button>
-                                                            </form>
-                                                            @endauth
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-
-                                <!-- Food Modal -->
-                                <div class="modal fade product-modal" id="productModal{{ $category->id }}{{ $product->id }}" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title price" id="productModalLabel">{{ $product->title }}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <img src="{{ asset('storage/' . $product->image) }}" loading="lazy" alt="{{ $product->title }}" class="img-fluid">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <p class="price">${{ $product->price }}</p>
-                                                            <div class="fs-5 my-1 text-warning">Information:</div>
-                                                            <p>{!! $product->description !!}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @auth
-                                            <div class="modal-footer">
-                                                <form class="order-form" data-product-id="{{ $product->id }}">
-                                                    @csrf
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <button type="submit" class="button-normal">Order</button>
-                                                </form>
-                                            </div>
-                                            @endauth
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
+                        @endforelse
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <div class="clearfix">
-            <ul class="paginations">
-                {{ $products->appends(['search' => request('search')])->links() }}
-            </ul>
+        <!-- Pagination -->
+        <div class="clearfix pt-5">
+            {{ $products->appends(['search' => request('search')])->links() }}
         </div>
     </div>
 </section>
-<!-- End Menu Section -->

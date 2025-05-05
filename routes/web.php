@@ -12,9 +12,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\NotificationController;
 
 // Public Routes
-Route::get('/home', function () {
-    return view('home');
-})->name('home')->withoutMiddleware(['auth']);
+Route::get('/home', [ProductController::class, 'showFoodProducts'])->name('home')->withoutMiddleware(['auth']);
 
 Route::get('/', function () {
     return redirect('/home');
@@ -28,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     Route::get('/order-history', [OrderController::class, 'userOrderHistory'])->name('order.history');
+    Route::put('/orders/{order}/decline', [OrderController::class, 'decline'])->name('orders.decline');
 
     // Cart Routes
     Route::post('/home/cart/add', [CartController::class, 'addToCart'])->name('cart.add');

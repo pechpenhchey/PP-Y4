@@ -87,7 +87,7 @@ class OrderController extends Controller
 
         Cart::where('user_id', $user->id)->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Order placed successfully!');
+        return redirect()->route('home')->with('success', 'Order placed successfully!');
     }
 
     public function index(Request $request)
@@ -116,37 +116,63 @@ class OrderController extends Controller
 
 
     public function update(Request $request, Order $order)
-    {
-        $order->status = $request->status;
-        $order->save();
-
-        $message = '';
-        $alertType = 'success';
-
-        switch ($request->status) {
-            case 'pending':
-                $message = 'Order status changed to pending.';
-                $alertType = 'warning';
-                break;
-            case 'declined':
-                $message = 'Order status changed to declined.';
-                $alertType = 'danger';
-                break;
-
-            default:
-                $message = 'Order status updated successfully!';
-                break;
-        }
-
-        return redirect()->back()->with('status', $alertType)->with('message', $message);
+{
+    // Prevent updates if already decided
+    if (in_array($order->status, ['approved', 'declined', 'user_declined'])) {
+        return redirect()->back()->with('status', 'warning')->with('message', 'This order status cannot be changed.');
     }
+
+    // Validate allowed status
+    $request->validate([
+        'status' => 'required|in:pending,approved,declined',
+    ]);
+
+    $order->status = $request->status;
+    $order->save();
+
+    $message = '';
+    $alertType = 'success';
+
+    switch ($request->status) {
+        case 'pending':
+            $message = 'Order status changed to pending.';
+            $alertType = 'warning';
+            break;
+        case 'declined':
+            $message = 'Order status changed to declined.';
+            $alertType = 'danger';
+            break;
+        case 'approved':
+            $message = 'Order approved successfully!';
+            $alertType = 'success';
+            break;
+    }
+
+    return redirect()->back()->with('status', $alertType)->with('message', $message);
+}
+
+
 
     public function userOrderHistory()
     {
         $user = auth()->user();
-        $orders = Order::where('user_id', $user->id)->latest()->paginate(5);
+        $orders = Order::where('user_id', $user->id)->latest()->paginate(10);
         return view('history', compact('orders'));
     }
+
+    public function decline($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+   
+        if ($order->status !== 'pending') {
+            return redirect()->route('order.history')->with('error', 'Only pending orders can be declined.');
+        }
+   
+        $order->status = 'User Declined';
+        $order->save();
+   
+        return redirect()->route('order.history')->with('success', 'Your order has been declined.');
+    }    
 
     public function countNewOrders()
     {

@@ -1,5 +1,12 @@
 <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
 
+<style>
+    .login-btn:hover {
+        background-color: white;
+        color: #CE1A1A;
+    }
+</style>
+
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between px-5">
@@ -12,19 +19,21 @@
                 <li><a href="/home#hero">Home</a></li>
                 <li><a href="/home#menu">Menu</a></li>
                 <li><a href="/home#about">About</a></li>
-                <li><a href="/home#contact">Contact</a></li>
+                <li class="me-3"><a href="/home#contact">Contact</a></li>
 
                 @guest 
-                <!-- This part is visible only to guests --> 
+                <!-- visible only to guests --> 
                 <div> 
-                    <h2>Please 
-                        <a href="{{ route('login') }}">login</a>
+                    <h2> 
+                        <a href="{{ route('login') }}" class="btn login-btn" style="background-color: #CE1A1A; color: white; padding: 6px 12px; font-size: 16px; border-radius: 5px; text-align: center; text-decoration: none;">
+                            Login
+                        </a>
                     </h2> 
-                </div> 
+                </div>                 
                 @endguest
                 
                 @auth
-                <div class="cart-container ms-3">
+                <div class="cart-container">
                     <a href="/home/cart"><i class="fa-solid fa-cart-shopping fs-4"></i></a>
                     <span class="badge" id="cart-count">
                         @if (isset($totalCount) && $totalCount > 0)
