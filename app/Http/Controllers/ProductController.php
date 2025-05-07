@@ -26,26 +26,29 @@ class ProductController extends Controller
     }
 
     public function showFoodProducts(Request $request)
-    {
-        $query = Product::query();
+{
+    $query = Product::query();
 
-        if ($request->has('title')) {
-            $query->where('title', 'like', '%' . $request->input('title') . '%');
-        }
-
-        if ($request->has('price')) {
-            $query->where('price', '=', $request->input('price'));
-        }
-
-        if ($request->has('category_id')) {
-            $query->where('category_id', '=', $request->input('category_id'));
-        }
-
-        $products = $query->paginate(8);
-        $categories = Category::all();
-
-        return view('dashboard', ['products' => $products, 'categories' => $categories]);
+    if ($request->has('title')) {
+        $query->where('title', 'like', '%' . $request->input('title') . '%');
     }
+
+    if ($request->has('price')) {
+        $query->where('price', '=', $request->input('price'));
+    }
+
+    if ($request->has('category_id')) {
+        $query->where('category_id', '=', $request->input('category_id'));
+    }
+
+    $products = $query->paginate(8);
+    $categories = Category::all();
+
+    return view('home', [
+        'products' => $products,
+        'categories' => $categories
+    ]);
+}
 
     public function create()
     {

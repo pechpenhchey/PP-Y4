@@ -12,7 +12,7 @@
             @include('homeComponents.hero')
             
             <main class="container" id="main">
-                @include('homeComponents.menu')
+                @include('homeComponents.menu', ['categories' => $categories, 'products' => $products])
                 @include('homeComponents.about')
                 @include('homeComponents.contact')
             </main>
